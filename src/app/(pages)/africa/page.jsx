@@ -40,7 +40,7 @@ export default function Africa() {
                 alt={post.title}
                 className="w-full h-[300px] object-cover rounded-md"
               />
-              <div className="absolute bottom-0 left-0 w-full bg-gray-300 bg-opacity-60 text-black p-3">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
                 <p className="font-semibold">{post.title}</p>
                 <div className="flex justify-between text-sm text-gray-300 mt-1">
                   <p>

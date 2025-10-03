@@ -40,7 +40,7 @@ export default function EconomySection() {
                   alt={post.title}
                   className="w-full h-[300px] object-cover rounded-lg"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-3">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
                   <p className="font-bold">{post.title}</p>
                   <div className="flex justify-between text-sm text-gray-300 mt-2">
                     <p>

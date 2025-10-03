@@ -1,3 +1,6 @@
+"use client";
+import Link from "next/link";
+
 export default function HeroSection() {
   return (
     <div className="carousel-item">
@@ -9,17 +12,16 @@ export default function HeroSection() {
         }}
       >
         {/* Overlay box */}
-        <div className="absolute bottom-5 right-5 bg-black bg-opacity-30 p-4  max-w-sm"
-         style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+        <div
+          className="absolute bottom-5 right-5 bg-black bg-opacity-30 p-4 max-w-sm"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
         >
           <p className="text-white text-sm mb-2">
             أججت فضيحة اغتصاب أسير فلسطيني نهاية شهر يوليو/تموز العام الماضي مجتمع "اسرائيل" بعد اعتقال الجنود المتهمين بجريمة الاغتصاب والتعذيب
           </p>
-          <a
-            className="text-white underline hover:text-gray-200 text-sm"
-          >
+          <Link href="/article" className="text-white underline hover:text-gray-200 text-sm">
             قراءة المزيد
-          </a>
+          </Link>
         </div>
       </div>
     </div>

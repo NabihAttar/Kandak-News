@@ -16,7 +16,7 @@ export default function Footer() {
     ["رياضة", "sports"],
     ["ملفات", "folders"],
     ["فيديو", "videos"],
-    ["انفوغرافيك", "infographics"],
+    ["صور الغلاف", "infographics"],
     ["من نحن", "about-us"],
     ["شروط الخصوصية", "privacy-policy"],
     ["تواصل معنا", "contact-us"],
@@ -43,8 +43,7 @@ export default function Footer() {
           </div>
 
           {/* Links Grid */}
-          <div className="flex-1 grid grid-cols-2 md:grid-cols-6 gap-4 text-right">
-            {[
+<div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-center text-right mt-10">            {[
               categories.slice(0, 3),
               categories.slice(3, 6),
               categories.slice(6, 9),
@@ -52,7 +51,8 @@ export default function Footer() {
               categories.slice(10, 13),
               categories.slice(13, 16),
             ].map((group, i) => (
-              <ul key={i} className="list-none space-y-2 text-sm">
+             <ul key={i} className="list-none space-y-2 text-sm text-center md:text-right">
+
                 {group.map(([label, path]) => (
                   <li key={path}>
                     <Link

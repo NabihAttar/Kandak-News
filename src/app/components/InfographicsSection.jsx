@@ -27,7 +27,7 @@ export default function InfographicsSection({ items = [] }) {
   if (!items.length) return null; // nothing to show
 
   return (
-    <section className="w-full bg-gray-300 py-12 mt-10">
+    <section className="w-full bg-black py-12 mt-10">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-white text-3xl font-bold mb-6">إنفوغرافيك</h1>
 
@@ -55,7 +55,7 @@ export default function InfographicsSection({ items = [] }) {
 
         <div className="text-center mt-10">
           <a
-            className="inline-block bg-[#1f2937] text-white py-2 px-6 rounded hover:bg-gray-700 transition cursor-pointer"
+            className="inline-block bg-red-600 text-white py-2 px-6 rounded hover:bg-red-900 transition cursor-pointer"
           >
             مشاهدة المزيد
           </a>
@@ -78,16 +78,16 @@ export default function InfographicsSection({ items = [] }) {
               alt={active.title}
               className="w-full h-auto rounded"
             />
-            <button
+            {/* <button
               onClick={closeLightbox}
               aria-label="Close"
               className="absolute top-2 right-2 bg-white rounded-full p-2 shadow"
             >
               ✕
-            </button>
-            <div className="mt-2 text-center text-white font-medium">
+            </button> */}
+            {/* <div className="mt-2 text-center text-white font-medium">
               {active.title}
-            </div>
+            </div> */}
           </div>
         </div>
       )}

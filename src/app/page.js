@@ -72,7 +72,7 @@ export default function Home() {
     <main className="bg-white">
       <HeroSection />
       <HighlightsSection />
-      <LatestIssueButton />
+      {/* <LatestIssueButton /> */}
 
       <LocalNewsSection
         leftTitle="محليات"

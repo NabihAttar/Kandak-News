@@ -29,7 +29,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { label: "رياضة", icon: <FaBasketballBall />, path: "/sports" },
     { label: "ملفات", path: "/folders" },
     { label: "فيديو", path: "/videos" },
-    { label: "انفوغرافيك", path: "/infographics" },
+    { label: "صور الغلاف", path: "/infographics" },
     { label: "الرئيسية", path: "/" },
     { label: "من نحن", path: "/about-us" },
     { label: "تواصل معنا", path: "/contact-us" },

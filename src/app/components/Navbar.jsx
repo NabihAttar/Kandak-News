@@ -42,6 +42,12 @@ export default function Navbar({
               >
                 <FaBars />
               </button>
+                <button
+                onClick={onLanguageToggle}
+                className="  text-black font-bold px-4 py-2 rounded "
+              >
+                En
+              </button>
 
               <form
                 onSubmit={handleSearchSubmit}
@@ -68,6 +74,7 @@ export default function Navbar({
                   >
                     <FaSearch className="text-black " />
                   </button>
+                  
                 </div>
               </form>
             </div>
@@ -76,7 +83,7 @@ export default function Navbar({
             <div className="flex justify-center flex-1">
               <div>
                 <img
-                  src="/images/rima logo 4.svg"
+                  src="/images/logo.svg"
                   alt="الخندق"
                   className="h-16 object-contain"
                 />
@@ -85,18 +92,23 @@ export default function Navbar({
 
             {/* Right: actions */}
             <div className="flex items-center gap-4 flex-1 justify-end">
-              <button
-                onClick={onLanguageToggle}
-                className=" bg-gray-300 text-black font-bold px-4 py-2 rounded "
-              >
-                En
-              </button>
-              <button
-                onClick={onLatestIssue}
-                className="bg-gray-300 text-black font-bold px-4 py-2 rounded"
-              >
-                العدد الأخير
-              </button>
+            
+            <div className="flex gap-2">
+  <button
+    onClick={onLatestIssue}
+    className="bg-gray-300 text-black font-bold px-12 py-2 rounded whitespace-nowrap"
+  >
+    العدد الأخير
+  </button>
+
+  <button
+    onClick={onLatestIssue}
+    className="bg-gray-300 text-black font-bold px-12 py-2 rounded whitespace-nowrap"
+  >
+    تحميل العدد
+  </button>
+</div>
+
               <select
                 // value={edition}
                 // onChange={handleEdition}
@@ -122,10 +134,17 @@ export default function Navbar({
               >
                 <FaBars />
               </button>
+
+                <button
+                onClick={onLanguageToggle}
+                className=" bg-gray-300 text-black font-bold px-4 py-2 rounded "
+              >
+                En
+              </button>
               <div className="flex-1 flex justify-center">
                 <div>
                   <img
-                    src="/images/rima logo 4.svg"
+                    src="/images/logo.svg"
                     alt="الخندق"
                     className="h-16 object-contain"
                   />
@@ -141,6 +160,10 @@ export default function Navbar({
                 </button>
                 <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center" onClick={onLatestIssue}>
                   العدد الأخير
+                </button>
+
+                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center" onClick={onLatestIssue}>
+                  تحميل العدد 
                 </button>
                 <select
                   // value={edition}

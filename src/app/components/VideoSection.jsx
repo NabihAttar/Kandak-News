@@ -28,7 +28,7 @@ export default function VideoSection() {
   const [activeVideo, setActiveVideo] = useState(videos[0].id);
 
   return (
-    <section className="w-full bg-gray-300 py-10 mt-10">
+    <section className="w-full bg-black py-10 mt-10">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-white text-2xl font-bold mb-6">فيديو</h1>
         <div className="flex flex-col lg:flex-row gap-6">
@@ -77,7 +77,7 @@ export default function VideoSection() {
         {/* View More Button */}
         <div className="text-center mt-8" >
           <a
-            className="inline-block bg-[#111] text-white py-2 px-6 rounded hover:bg-gray-900 transition cursor-pointer"
+            className="inline-block bg-red-600 text-white py-2 px-6 rounded hover:bg-red-900 transition cursor-pointer"
           >
             مشاهدة المزيد
           </a>

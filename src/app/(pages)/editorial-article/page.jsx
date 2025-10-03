@@ -54,11 +54,13 @@ export default function EditorialArticleGrid() {
                   alt={item.title}
                   className="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-4">
-                  <div className="text-black font-semibold text-lg leading-tight">
+                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-4"> */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+
+                  <div className="text-white font-semibold text-lg leading-tight">
                     {item.title}
                   </div>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-4 mt-2 text-sm text-white">
                     <div className="flex items-center gap-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

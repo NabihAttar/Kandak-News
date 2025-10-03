@@ -46,7 +46,7 @@ const infographics = [
 export default function Infographics() {
   return (
     <div className="container mx-auto px-4 ">
-      <h1 className="text-black ms-5 mb-4 text-2xl font-semibold">إنفوغرافيك</h1>
+      <h1 className="text-black ms-5 mb-4 text-2xl font-semibold">صور الغلاف</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {infographics.map(({ url, title }, i) => (
@@ -57,13 +57,14 @@ export default function Infographics() {
             target="_blank"
             rel="noopener noreferrer"
           >
+            
             <img
               src={url}
               alt={title}
               className="w-full h-[380px] object-cover"
               loading="lazy"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-3 text-white text-lg font-medium">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
               {title}
             </div>
           </a>

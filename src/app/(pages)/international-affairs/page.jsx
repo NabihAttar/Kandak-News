@@ -26,7 +26,7 @@ export default function InternationalAffairs() {
     // ...add other posts here
   ];
 
-  const pages = [1, 2, 3, 4, 5, 6, 7];
+  const pages = [1, 2, 3, 4, 5, 6, 7,];
 
   return (
     <div className="container mx-auto ">
@@ -42,7 +42,7 @@ export default function InternationalAffairs() {
                 alt={post.title}
                 className="w-full h-[300px] object-cover rounded-md"
               />
-              <div className="absolute bottom-0 w-full bg-black/70 p-3 text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4">
                 <p className="font-bold">{post.title}</p>
                 <div className="flex justify-between text-sm text-gray-300 mt-1">
                   <p className="flex items-center gap-1">
@@ -75,11 +75,10 @@ export default function InternationalAffairs() {
             <li key={page}>
               <a
                 // href={`https://al-khandak.com/categories/international-affairs?page=${page}`}
-                className={`px-3 py-1 rounded-md ${
-                  page === 1
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-800 text-white hover:bg-blue-600"
-                }`}
+                className={`px-3 py-1 rounded-md ${page === 1
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                  }`}
               >
                 {page}
               </a>
