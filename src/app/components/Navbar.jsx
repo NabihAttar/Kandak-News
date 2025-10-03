@@ -135,12 +135,12 @@ export default function Navbar({
                 <FaBars />
               </button>
 
-                <button
+                {/* <button
                 onClick={onLanguageToggle}
                 className=" bg-gray-300 text-black font-bold px-4 py-2 rounded "
               >
                 En
-              </button>
+              </button> */}
               <div className="flex-1 flex justify-center">
                 <div>
                   <img
@@ -155,22 +155,23 @@ export default function Navbar({
             {/* Buttons row */}
             <div className="mt-3 flex flex-col items-start gap-2 px-2">
               <div className="w-full flex flex-wrap gap-2">
-                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center" onClick={onLanguageToggle}>
+                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLanguageToggle}>
                   En
                 </button>
-                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center" onClick={onLatestIssue}>
+                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLatestIssue}>
                   العدد الأخير
                 </button>
 
-                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center" onClick={onLatestIssue}>
+                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLatestIssue}>
                   تحميل العدد 
                 </button>
                 <select
                   // value={edition}
                   // onChange={handleEdition}
-                  className="px-3 py-2 rounded border border-black bg-white text-sm flex-1"
+                  className="px-3 py-2 rounded border border-black bg-white text-sm text-black border cursor-pointer"
                   aria-label="العدد - التاريخ"
                 >
+                  {/* nabih */}
                   <option disabled value="">
                     العدد - التاريخ
                   </option>
