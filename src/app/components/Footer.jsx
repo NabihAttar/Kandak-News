@@ -17,7 +17,7 @@ export default function Footer() {
     ["ملفات", "folders"],
     ["فيديو", "videos"],
     ["صور الغلاف", "infographics"],
-    ["من نحن", "about-us"],
+    // ["من نحن", "about-us"],
     ["شروط الخصوصية", "privacy-policy"],
     ["تواصل معنا", "contact-us"],
   ];

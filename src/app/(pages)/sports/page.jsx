@@ -87,16 +87,24 @@ export default function SportsSection() {
         },
     ];
 
+    const totalPages = 3; 
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const pagination = {
+        currentPage: 1, 
+        totalPages,
+        //  baseUrl: "/sports?page=",
+    }
     return (
-        <div className="container mx-auto  px-4">
-            <h1 className="text-black ms-5 mb-4 text-3xl font-bold">رياضة</h1>
+        <div className="container mx-auto  px-4 pb-[70px]">
+            <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">رياضة</h1>
 
             <div className="grid gap-2 grid-cols-1 lg:grid-cols-3">
                 {posts.map((post, idx) => (
                     <a
                         key={idx}
                         // href={post.link}
-                        className="block col-span-1 rounded-lg overflow-hidden shadow-lg relative group"
+                        className="block col-span-1 rounded
+                         overflow-hidden shadow-lg relative group"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -120,6 +128,39 @@ export default function SportsSection() {
                     </a>
                 ))}
             </div>
+              <div className="flex justify-center mt-8">
+        <ul className="flex items-center gap-2">
+          {/* Prev (disabled for page 1) */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
         </div>
     );
 }

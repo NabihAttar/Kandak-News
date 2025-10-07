@@ -11,7 +11,7 @@ export default function LocalNewsSection({
   rightPosts = [],
 }) {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-6">
+    <section className="max-w-6xl mx-auto px-4 py-6 pb-[70px]">
       <div className="flex flex-col md:flex-row">
         {/* Left Column */}
         <div className="w-full md:w-1/2 md:pe-6 border-gray-300 md:border-e">

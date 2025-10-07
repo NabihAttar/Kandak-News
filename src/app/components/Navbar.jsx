@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { FaBars, FaSearch } from "react-icons/fa";
 import Sidebar from "./Sidebar";
+import { FaFilePdf } from "react-icons/fa";
+
 
 export default function Navbar({
   onLanguageToggle = () => {},
@@ -94,19 +96,21 @@ export default function Navbar({
             <div className="flex items-center gap-4 flex-1 justify-end">
             
             <div className="flex gap-2">
-  <button
+  {/* <button
     onClick={onLatestIssue}
     className="bg-gray-300 text-black font-bold px-12 py-2 rounded whitespace-nowrap"
   >
     العدد الأخير
-  </button>
+  </button> */}
 
-  <button
-    onClick={onLatestIssue}
-    className="bg-gray-300 text-black font-bold px-12 py-2 rounded whitespace-nowrap"
-  >
-    تحميل العدد
-  </button>
+ <button
+  onClick={onLatestIssue}
+  className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1
+             inline-flex items-center justify-center gap-2 cursor-pointer"
+>
+  <FaFilePdf className="text-red-600 text-xl" aria-hidden />
+  <span>تحميل العدد</span>
+</button>
 </div>
 
               <select
@@ -158,13 +162,18 @@ export default function Navbar({
                 <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLanguageToggle}>
                   En
                 </button>
-                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLatestIssue}>
+                {/* <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLatestIssue}>
                   العدد الأخير
-                </button>
+                </button> */}
 
-                <button className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1 text-center cursor-pointer" onClick={onLatestIssue}>
-                  تحميل العدد 
-                </button>
+                 <button
+  onClick={onLatestIssue}
+  className="bg-gray-300 text-black font-bold px-4 py-2 rounded flex-1
+             inline-flex items-center justify-center gap-2 cursor-pointer"
+>
+  <FaFilePdf className="text-red-600 text-xl" aria-hidden />
+  <span>تحميل العدد</span>
+</button>
                 <select
                   // value={edition}
                   // onChange={handleEdition}

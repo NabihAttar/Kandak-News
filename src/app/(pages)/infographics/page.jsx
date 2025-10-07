@@ -44,20 +44,30 @@ const infographics = [
 ];
 
 export default function Infographics() {
-  return (
-    <div className="container mx-auto px-4 ">
-      <h1 className="text-black ms-5 mb-4 text-2xl font-semibold">صور الغلاف</h1>
+  // 👇 define pages & pagination
+  const totalPages = 7; // set whatever you need
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pagination = {
+    currentPage: 1,
+    totalPages,
+    // baseUrl: "/infographics?page=",
+  };
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+  return (
+    <div className="container mx-auto px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">
+        صور الغلاف
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 ">
         {infographics.map(({ url, title }, i) => (
           <a
             href={url}
             key={i}
-            className="relative group block overflow-hidden"
+            className="relative group block overflow-hidden rounded"
             target="_blank"
             rel="noopener noreferrer"
           >
-            
             <img
               src={url}
               alt={title}
@@ -71,39 +81,41 @@ export default function Infographics() {
         ))}
       </div>
 
-      <div className="col-span-full text-center mt-5">
-        <nav aria-label="Pagination">
-          <ul className="inline-flex -space-x-px rounded-md shadow-sm">
-            <li className="page-item disabled" aria-disabled="true" aria-label="pagination.previous">
-              <span className="page-link cursor-not-allowed inline-flex items-center justify-center rounded-l-md border border-gray-700 bg-gray-700 px-3 py-2 text-white" aria-hidden="true">
-                ‹
-              </span>
-            </li>
-            <li aria-current="page">
-              <span className="page-link relative z-10 inline-flex items-center border border-khandaq-orange bg-khandaq-orange px-4 py-2 text-white">
-                1
-              </span>
-            </li>
-            <li>
+      {/* Pagination */}
+      <div className="flex justify-center mt-8" dir="rtl">
+        <ul className="flex items-center gap-2">
+          {/* Prev */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
+              ‹
+            </span>
+          </li>
+
+          {pages.map((page) => (
+            <li key={page}>
               <a
-                // href="https://al-khandak.com/infographics?page=2"
-                className="page-link relative inline-flex items-center border border-gray-700 bg-transparent px-4 py-2 text-white hover:bg-gray-700"
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
               >
-                2
+                {page}
               </a>
             </li>
-            <li>
-              <a
-                // href="https://al-khandak.com/infographics?page=2"
-                rel="next"
-                aria-label="pagination.next"
-                className="page-link relative inline-flex items-center rounded-r-md border border-gray-700 bg-transparent px-3 py-2 text-white hover:bg-gray-700"
-              >
-                ›
-              </a>
-            </li>
-          </ul>
-        </nav>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

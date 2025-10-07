@@ -28,9 +28,15 @@ export default function OpinionSection() {
 
   const pages = [1, 2, 3, 4, 5, 6, 7];
 
+  const pagination = {
+    currentPage: 1,
+    totalPages: pages.length,
+    // baseUrl: "/opinion?page=",
+  }
+
   return (
-    <div className="container mx-auto  px-4">
-      <h1 className="text-black text-3xl font-bold mb-6">رأي</h1>
+    <div className="container mx-auto  px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">رأي</h1>
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -40,9 +46,9 @@ export default function OpinionSection() {
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-[300px] object-cover rounded-lg group-hover:opacity-90 transition"
+                className="w-full h-[300px] object-cover rounded group-hover:opacity-90 transition "
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white rounded">
                 <h2 className="text-lg font-bold mb-2">{post.title}</h2>
                 <div className="flex items-center text-gray-300 text-sm space-x-4 rtl:space-x-reverse">
                   <p className="flex items-center gap-1">
@@ -61,7 +67,7 @@ export default function OpinionSection() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-10">
+      {/* <div className="flex justify-center mt-10">
         <ul className="flex items-center space-x-1 rtl:space-x-reverse">
           <li>
             <span className="px-3 py-1 text-gray-500 bg-gray-800 rounded cursor-not-allowed">
@@ -88,6 +94,41 @@ export default function OpinionSection() {
             <a
             //   href="https://al-khandak.com/categories/opinion?page=2"
               className="px-3 py-1 bg-gray-800 text-white rounded hover:bg-blue-600"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
+      </div> */}
+
+      <div className="flex justify-center mt-8" dir="rtl">
+        <ul className="flex items-center gap-2">
+          {/* Prev */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+
+          {/* Page numbers */}
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
             >
               ›
             </a>

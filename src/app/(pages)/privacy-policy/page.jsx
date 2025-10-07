@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="container mx-auto px-4 " dir="rtl">
+    <div className="container mx-auto px-4  pb-[70px]" dir="rtl">
       <h1 className="text-black text-right text-lg font-semibold mb-4">
         ‫سياسة الخصوصية
       </h1>

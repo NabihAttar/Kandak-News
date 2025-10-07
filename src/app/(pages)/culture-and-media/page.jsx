@@ -127,21 +127,25 @@ export default function CultureMediaSection() {
 
     // Example pagination data (hardcoded for demo)
     const currentPage = 1;
-    const totalPages = 9;
+    const totalPages = 3;
 
     // Generate page numbers array
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
+  const pagination = {
+    currentPage: 1,
+    totalPages: pages.length,
+    // baseUrl: "/opinion?page=",
+  }
     return (
-        <div className="container mx-auto  px-4">
-            <h1 className="text-black text-3xl font-bold mb-6">ثقافة وميديا</h1>
+        <div className="container mx-auto  px-4 pb-[70px]">
+            <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">ثقافة وميديا</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {posts.map((post, idx) => (
                     <a
                         key={idx}
                         href={post.link}
-                        className="block group rounded-lg overflow-hidden shadow-lg"
+                        className="block group rounded overflow-hidden shadow-lg"
                     >
                         <div className="relative">
                             <img
@@ -168,7 +172,7 @@ export default function CultureMediaSection() {
             </div>
 
             {/* Pagination */}
-            <nav className="flex justify-center mt-10" aria-label="Pagination">
+            {/* <nav className="flex justify-center mt-10" aria-label="Pagination">
                 <ul className="inline-flex items-center -space-x-px rtl:flex-row-reverse rtl:-space-x-reverse">
                     <li
                         className={`page-item ${currentPage === 1 ? "pointer-events-none opacity-50" : ""
@@ -216,7 +220,36 @@ export default function CultureMediaSection() {
 
                     </li>
                 </ul>
-            </nav>
+            </nav> */}
+            <div className="flex justify-center mt-8" dir="rtl">
+        <ul className="flex items-center gap-2">
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
         </div>
     );
 }

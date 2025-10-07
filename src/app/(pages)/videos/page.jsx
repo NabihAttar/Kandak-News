@@ -34,8 +34,8 @@ const videos = [
 
 export default function VideoGallery() {
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold">فيديو</h1>
+    <div className="container mx-auto px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">فيديو</h1>
       <div className="flex flex-col lg:flex-row mt-5 gap-6">
         {/* Left big video */}
         <div className="lg:w-1/2 w-full">

@@ -38,11 +38,17 @@ const editorialItems = [
     url: "/editorial-article/5",
   },
 ];
-
+ const totalPages = 7; // set the real number if you have it
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pagination = {
+    currentPage: 1,
+    totalPages,
+    // baseUrl: "/philosophy?page=",
+  }
 export default function EditorialArticleGrid() {
   return (
-    <div className="container mx-auto  px-4 bg-white">
-      <h1 className="text-black ms-5 mb-4 text-2xl font-bold">افتتاحية</h1>
+    <div className="container mx-auto  px-4 bg-white pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pt-[50px] pb-[14px]">افتتاحية</h1>
 
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
         {editorialItems.map((item, idx) => (
@@ -104,6 +110,39 @@ export default function EditorialArticleGrid() {
       </div>
 
       <div className="w-full text-center mt-5">{/* optional more button */}</div>
+        <div className="flex justify-center mt-8">
+        <ul className="flex items-center gap-2">
+          {/* Prev (disabled for page 1) */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

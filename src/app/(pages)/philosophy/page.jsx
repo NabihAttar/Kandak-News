@@ -91,17 +91,25 @@ export default function PhilosophySection() {
     //   link: "https://al-khandak.com/posts/العنف-كضرورة-رأسمالية-2",
     },
   ];
+const totalPages = 7; // set the real number if you have it
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pagination = {
+    currentPage: 1,
+    totalPages,
+    // baseUrl: "/philosophy?page=",
+  };
 
   return (
-    <div className="container mx-auto  px-4">
-      <h1 className="text-black text-3xl font-bold mb-6">فلسفة</h1>
+    <div className="container mx-auto px-4 pb-[70px]" dir="rtl">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">فلسفة</h1>
 
+      {/* Posts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {posts.map((post, idx) => (
           <a
             key={idx}
-            href={post.link}
-            className="block group rounded-lg overflow-hidden shadow-lg"
+            href={post.link || "#"}
+            className="block group rounded overflow-hidden shadow-lg"
           >
             <div className="relative">
               <img
@@ -111,13 +119,13 @@ export default function PhilosophySection() {
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
                 <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
-                <div className="flex items-center text-gray-300 text-sm space-x-4 rtl:space-x-reverse">
+                <div className="flex items-center text-gray-300 text-sm gap-4">
                   <p className="flex items-center gap-1">
-                    <i className="fas fa-clock text-xs"></i>
+                    <i className="fas fa-clock text-xs" />
                     {post.date}
                   </p>
                   <p className="flex items-center gap-1">
-                    <i className="fas fa-newspaper text-xs"></i>
+                    <i className="fas fa-newspaper text-xs" />
                     {post.views}
                   </p>
                 </div>
@@ -125,6 +133,41 @@ export default function PhilosophySection() {
             </div>
           </a>
         ))}
+      </div>
+
+      {/* Pagination (moved outside the map) */}
+      <div className="flex justify-center mt-8">
+        <ul className="flex items-center gap-2">
+          {/* Prev (disabled for page 1) */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

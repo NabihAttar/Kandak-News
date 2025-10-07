@@ -29,8 +29,8 @@ export default function InternationalAffairs() {
   const pages = [1, 2, 3, 4, 5, 6, 7,];
 
   return (
-    <div className="container mx-auto ">
-      <h1 className="text-black ms-5 mb-4 text-2xl font-bold">عربي ودولي</h1>
+    <div className="container mx-auto  px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">عربي ودولي</h1>
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -42,7 +42,7 @@ export default function InternationalAffairs() {
                 alt={post.title}
                 className="w-full h-[300px] object-cover rounded-md"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4 rounded">
                 <p className="font-bold">{post.title}</p>
                 <div className="flex justify-between text-sm text-gray-300 mt-1">
                   <p className="flex items-center gap-1">

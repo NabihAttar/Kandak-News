@@ -17,7 +17,7 @@ import {
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const menuItems = [
-    { label: "الخندق", icon: <FaChevronRight />, path: "/" },
+    { label: "الرئيسية", icon: <FaChevronRight />, path: "/" },
     { label: "افتتاحية", icon: <FaBullhorn />, path: "/editorial-article" },
     { label: "اسرائيليات", icon: <FaStarOfDavid />, path: "/israeli-occupation" },
     { label: "عربي ودولي", icon: <FaGlobe />, path: "/international-affairs" },
@@ -31,8 +31,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { label: "ملفات", path: "/folders" },
     { label: "فيديو", path: "/videos" },
     { label: "صور الغلاف", path: "/infographics" },
-    { label: "الرئيسية", path: "/" },
-    { label: "من نحن", path: "/about-us" },
+    // { label: "من نحن", path: "/about-us" },
     { label: "تواصل معنا", path: "/contact-us" },
   ];
 

@@ -123,6 +123,14 @@ const israeliOccupationPosts = [
   },
 ];
 
+
+ const totalPages = 7; // set the real number if you have it
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pagination = {
+    currentPage: 1,
+    totalPages,
+    // baseUrl: "/philosophy?page=",
+  }
 function Pagination() {
   return (
     <nav className="mt-8 flex justify-center">
@@ -184,14 +192,14 @@ function Pagination() {
 
 export default function IsraeliOccupationGrid() {
   return (
-    <div className="container mx-auto  px-4">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold">اسرائيليات</h1>
+   <div className="container mx-auto  px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">اسرائيليات</h1>
 
-      <div className="grid gap-2 grid-cols-1 lg:grid-cols-3">
+      <div className="grid gap-2 grid-cols-1 lg:grid-cols-3 ">
         {israeliOccupationPosts.map(({ id, href, img, title, date, views }) => (
           <div key={id} className="col-span-1">
             <a href={href} target="_blank" rel="noopener noreferrer" className="block">
-              <div className="relative">
+              <div className="relative ">
                 <img
                   src={img}
                   alt={title}
@@ -199,7 +207,7 @@ export default function IsraeliOccupationGrid() {
                   height="300"
                   className="w-full h-[300px] object-cover rounded"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white rounded">
                   <h2 className="text-lg font-semibold">{title}</h2>
                   <div className="flex justify-between text-sm mt-1 text-gray-300">
                     <p className="flex items-center gap-1">
@@ -219,7 +227,39 @@ export default function IsraeliOccupationGrid() {
       </div>
 
       {/* <Pagination count={10} disabled /> */}
-      
+        <div className="flex justify-center mt-8">
+        <ul className="flex items-center gap-2">
+          {/* Prev (disabled for page 1) */}
+          <li>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+          </li>
+
+          {pages.map((page) => (
+            <li key={page}>
+              <a
+                // href={`${pagination.baseUrl}${page}`}
+                className={`px-3 py-1 rounded-md ${
+                  page === pagination.currentPage
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
+                }`}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
+
+          {/* Next */}
+          <li>
+            <a
+              // href={`${pagination.baseUrl}${pagination.currentPage + 1}`}
+              className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md"
+            >
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
       
     </div>
   );
