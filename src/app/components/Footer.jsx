@@ -42,30 +42,34 @@ export default function Footer() {
             </button>
           </div>
 
-          {/* Links Grid */}
-<div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-center text-right mt-10">            {[
-              categories.slice(0, 3),
-              categories.slice(3, 6),
-              categories.slice(6, 9),
-              categories.slice(9, 10),
-              categories.slice(10, 13),
-              categories.slice(13, 16),
-            ].map((group, i) => (
-             <ul key={i} className="list-none space-y-2 text-sm text-center md:text-right">
+         {/* Links Grid */}
+<div
+  className="md:flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-10
+             w-fit mx-auto justify-items-center
+             md:w-full md:justify-items-start">
+  {[
+    categories.slice(0, 3),
+    categories.slice(3, 6),
+    categories.slice(6, 9),
+    categories.slice(9, 10),
+    categories.slice(10, 13),
+    categories.slice(13, 16),
+  ].map((group, i) => (
+    <ul key={i} className="list-none space-y-2 text-sm text-center md:text-right">
+      {group.map(([label, path]) => (
+        <li key={path}>
+          <Link
+            href={`/${path}`}
+            className="text-gray-800 hover:text-red-600 transition-colors duration-200 cursor-pointer font-bold"
+          >
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  ))}
+</div>
 
-                {group.map(([label, path]) => (
-                  <li key={path}>
-                    <Link
-                      href={`/${path}`}
-                      className="text-gray-800 hover:text-red-600 transition-colors duration-200 cursor-pointer font-bold"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
         </div>
       </div>
     </div>
