@@ -1,0 +1,44 @@
+{
+  "toggle": "العربية",
+  "toggleAria": "Toggle language",
+  "openMenu": "Open menu",
+  "search": "Search",
+  "searchPlaceholder": "Search the news",
+  "searchRequired": "Please enter a search query",
+  "brandAlt": "Al-Khandak",
+  "downloadIssue": "Download issue",
+  "issueDate": "Issue - Date",
+  "issue": "Issue",
+  "newsletter": {
+    "title": "Want to subscribe to our newsletter?",
+    "emailPlaceholder": "Email address",
+    "subscribe": "Subscribe"
+  },
+  "cat": {
+    "editorial": "Editorial",
+    "israelis": "Israeli Occupation",
+    "international": "International Affairs",
+    "africa": "Africa",
+    "locals": "Local",
+    "opinion": "Opinion",
+    "economy": "Economy",
+    "philosophy": "Philosophy",
+    "cultureMedia": "Culture & Media",
+    "sports": "Sports",
+    "folders": "Folders",
+    "videos": "Videos",
+    "infographics": "Cover Images",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "body": "The scandal of the rape of a Palestinian prisoner at the end of last July ignited Israeli society after the soldiers accused of rape and torture were arrested.",
+    "readMore": "Read more"
+  },
+  "close": "Close",
+  "title": "Infographics",
+  "viewMore": "View more",
+  "openAria": "Open infographic: {{title}}"
+
+  
+}

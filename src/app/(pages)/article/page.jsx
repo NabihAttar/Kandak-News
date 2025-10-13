@@ -7,7 +7,7 @@ import AuthorProfileCard from "./AuthorProfileCard";
 
 const ArticlePage = () => {
   return (
-    <div className="col-12 post-content pb-5 border-l-2 border-gray-300 pb-[70px]">
+    <div className="col-12 post-content pb-5 border-l-2 border-gray-300">
       {/* Header with background image */}
       <ArticleHeader />
 

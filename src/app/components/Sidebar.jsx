@@ -1,8 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import {
   FaChevronLeft,
+  FaChevronRight,
   FaBullhorn,
   FaStarOfDavid,
   FaGlobe,
@@ -12,28 +14,50 @@ import {
   FaBook,
   FaTheaterMasks,
   FaBasketballBall,
-  FaChevronRight,
 } from "react-icons/fa";
 
-export default function Sidebar({ isOpen, setIsOpen }) {
-  const menuItems = [
-    { label: "الرئيسية", icon: <FaChevronRight />, path: "/" },
-    { label: "افتتاحية", icon: <FaBullhorn />, path: "/editorial-article" },
-    { label: "اسرائيليات", icon: <FaStarOfDavid />, path: "/israeli-occupation" },
-    { label: "عربي ودولي", icon: <FaGlobe />, path: "/international-affairs" },
-    { label: "افريقيا", icon: <FaFlag />, path: "/africa" },
-    { label: "محليات", icon: <FaMapMarkerAlt />, path: "/mhlyat" },
-    { label: "رأي", icon: <FaComments />, path: "/opinion" },
-    { label: "اقتصاد", icon: <FaFlag />, path: "/economy" },
-    { label: "فلسفة", icon: <FaBook />, path: "/philosophy" },
-    { label: "ثقافة وميديا", icon: <FaTheaterMasks />, path: "/culture-and-media" },
-    { label: "رياضة", icon: <FaBasketballBall />, path: "/sports" },
-    { label: "ملفات", path: "/folders" },
-    { label: "فيديو", path: "/videos" },
-    { label: "صور الغلاف", path: "/infographics" },
-    // { label: "من نحن", path: "/about-us" },
-    { label: "تواصل معنا", path: "/contact-us" },
-  ];
+export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }) {
+  const { t } = useTranslation("common");
+
+  // Auto-detect dir from <html dir>, and keep it in sync when it changes
+  const [autoSide, setAutoSide] = useState("right");
+  useEffect(() => {
+    const compute = () =>
+      (document?.documentElement?.getAttribute("dir") || "rtl") === "rtl" ? "right" : "left";
+    setAutoSide(compute());
+
+    const mo = new MutationObserver(() => setAutoSide(compute()));
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["dir"] });
+    return () => mo.disconnect();
+  }, []);
+
+  const effectiveSide = side || autoSide;            // "right" in AR (rtl), "left" in EN (ltr)
+  const isLeft = effectiveSide === "left";           // ✅ FIXED (was inverted before)
+  const sideClass = isLeft ? "left-0" : "right-0";
+  const translateClosed = isLeft ? "-translate-x-full" : "translate-x-full";
+  const closeBtnSide = isLeft ? "right-2" : "left-2";
+  const Chevron = isLeft ? FaChevronLeft : FaChevronRight;
+
+  const menuItems = useMemo(
+    () => [
+      { label: t("home"),          icon: <Chevron />,        path: "/" },
+      { label: t("cat.editorial"), icon: <FaBullhorn />,     path: "/editorial-article" },
+      { label: t("cat.israelis"),  icon: <FaStarOfDavid />,  path: "/israeli-occupation" },
+      { label: t("cat.international"), icon: <FaGlobe />,    path: "/international-affairs" },
+      { label: t("cat.africa"),    icon: <FaFlag />,         path: "/africa" },
+      { label: t("cat.locals"),    icon: <FaMapMarkerAlt />, path: "/mhlyat" },
+      { label: t("cat.opinion"),   icon: <FaComments />,     path: "/opinion" },
+      { label: t("cat.economy"),   icon: <FaFlag />,         path: "/economy" },
+      { label: t("cat.philosophy"),icon: <FaBook />,         path: "/philosophy" },
+      { label: t("cat.cultureMedia"), icon: <FaTheaterMasks />, path: "/culture-and-media" },
+      { label: t("cat.sports"),    icon: <FaBasketballBall />, path: "/sports" },
+      { label: t("cat.folders"),   icon: null,               path: "/folders" },
+      { label: t("cat.videos"),    icon: null,               path: "/videos" },
+      { label: t("cat.infographics"), icon: null,            path: "/infographics" },
+      { label: t("cat.contact"),   icon: null,               path: "/contact-us" },
+    ],
+    [t, isLeft] // re-compute when language or direction changes (Chevron flips)
+  );
 
   // Close on Esc + lock body scroll when open
   useEffect(() => {
@@ -47,8 +71,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   }, [isOpen, setIsOpen]);
 
   return (
-    <div className={`fixed inset-0 z-50 ${isOpen ? "" : "pointer-events-none"}`} dir="rtl">
-      {/* Overlay — click anywhere on the screen to close */}
+    <div className={`fixed inset-0 z-50 ${isOpen ? "" : "pointer-events-none"}`} dir="auto">
+      {/* Overlay */}
       <div
         className={`absolute inset-0 bg-black/40 transition-opacity duration-300
           ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
@@ -56,19 +80,19 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         aria-hidden="true"
       />
 
-      {/* Sidebar panel */}
+      {/* Panel */}
       <aside
         role="dialog"
         aria-modal="true"
-        className={`absolute right-0 top-0 h-full w-64 bg-gray-100 text-black p-4 overflow-y-auto
+        className={`absolute top-0 ${sideClass} h-full ${widthClass} bg-gray-100 text-black p-4 overflow-y-auto
           transition-transform duration-300 z-40 scrollbar-hide
-          ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          ${isOpen ? "translate-x-0" : translateClosed}`}
       >
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          aria-label="إغلاق"
-          className="absolute left-2 top-2 rounded p-2 text-gray-600 hover:bg-black/5"
+          aria-label={t("close")}
+          className={`absolute top-2 ${closeBtnSide} rounded p-2 text-gray-600 hover:bg-black/5`}
         >
           ✕
         </button>

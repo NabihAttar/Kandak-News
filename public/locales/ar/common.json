@@ -1,0 +1,44 @@
+{
+  "toggle": "English",
+  "toggleAria": "تبديل اللغة",
+  "openMenu": "فتح القائمة",
+  "search": "بحث",
+  "searchPlaceholder": "البحث في الأخبار",
+  "searchRequired": "يرجى كتابة محتوى البحث",
+  "brandAlt": "الخندق",
+  "downloadIssue": "تحميل العدد",
+  "issueDate": "العدد - التاريخ",
+  "issue": "العدد",
+  "newsletter": {
+    "title": "هل تريد الاشتراك في نشرتنا الإخبارية؟",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "subscribe": "اشتراك"
+  },
+  "cat": {
+    "editorial": "افتتاحية",
+    "israelis": "اسرائيليات",
+    "international": "عربي ودولي",
+    "africa": "افريقيا",
+    "locals": "محليات",
+    "opinion": "رأي",
+    "economy": "اقتصاد",
+    "philosophy": "فلسفة",
+    "cultureMedia": "ثقافة وميديا",
+    "sports": "رياضة",
+    "folders": "ملفات",
+    "videos": "فيديو",
+    "infographics": "صور الغلاف",
+    "privacy": "شروط الخصوصية",
+    "contact": "تواصل معنا"
+  },
+   "hero": {
+     "body": "أججت فضيحة اغتصاب أسير فلسطيني نهاية شهر يوليو/تموز العام الماضي مجتمع \"اسرائيل\" بعد اعتقال الجنود المتهمين بجريمة الاغتصاب والتعذيب",
+    "readMore": "قراءة المزيد"
+  },
+  "close": "إغلاق",
+  "infographicsSection": {
+    "title": "إنفوغرافيك",
+    "viewMore": "مشاهدة المزيد",
+    "openAria": "عرض الإنفوغرافيك: {{title}}"
+  }
+}
