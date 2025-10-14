@@ -22,19 +22,27 @@ const ArticleContent = () => {
   }
 
   return (
-    <div className="prose prose-lg max-w-none text-justify text-black mr-10" dir="rtl">
-      {chunks.map((group, index) => (
-        <React.Fragment key={index}>
-          {group.map((para, idx) => (
-            <p key={idx} dangerouslySetInnerHTML={{ __html: para }} />
-          ))}
-          
-          {index !== chunks.length - 1 && (
-            <QuoteBreak text="هذا اقتباس بين الفقرات لتعزيز المعنى" />
-          )}
-        </React.Fragment>
-      ))}
-    </div>
+    // Parent is relative so we can draw a mobile-only border at the right edge
+    <section dir="rtl" className="relative w-full">
+      {/* <span
+        aria-hidden
+        className="absolute right-0 top-0 bottom-0 w-px bg-gray-300 lg:hidden"
+      /> */}
+
+      <div className="prose prose-lg max-w-none text-justify text-black px-4 sm:px-5 md:px-6 lg:px-8">
+        {chunks.map((group, index) => (
+          <React.Fragment key={index}>
+            {group.map((para, idx) => (
+              <p key={idx} dangerouslySetInnerHTML={{ __html: para }} />
+            ))}
+
+            {index !== chunks.length - 1 && (
+              <QuoteBreak text="هذا اقتباس بين الفقرات لتعزيز المعنى" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </section>
   );
 };
 
