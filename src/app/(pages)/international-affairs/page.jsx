@@ -72,7 +72,7 @@ export default function InternationalAffairs() {
 
       {/* Pagination */}
       <div className="flex justify-center mt-8">
-        <ul className="flex space-x-1">
+        <ul className="flex items-center gap-2">
           {/* Previous Button */}
           <li>
             <button
