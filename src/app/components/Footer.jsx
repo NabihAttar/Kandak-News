@@ -27,9 +27,10 @@ export default function Footer() {
   ];
 
   return (
-    <div className="w-full bg-gray-100 mt-4">
+    <div className="w-full bg-gray-100">
       <div className="container mx-auto px-4 py-10">
-        <div className="flex flex-col md:flex-row gap-6 items-start">
+        {/* Center on mobile; normal align on md+ */}
+        <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
           {/* Subscription Box */}
           <div className="bg-gray-300 text-black p-6 md:w-1/4 w-full text-center">
             <p className="mb-4">{t("newsletter.title")}</p>
@@ -51,7 +52,13 @@ export default function Footer() {
           </div>
 
           {/* Links Grid */}
-          <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-center text-start mt-10">
+          <div
+            className="
+              w-full flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-10
+              justify-center             /* center the grid tracks if narrower */
+              justify-items-center md:justify-items-start  /* center each column on mobile */
+            "
+          >
             {[
               categories.slice(0, 3),
               categories.slice(3, 6),
@@ -60,7 +67,10 @@ export default function Footer() {
               categories.slice(10, 13),
               categories.slice(13, 16),
             ].map((group, i) => (
-              <ul key={i} className="list-none space-y-2 text-sm text-center md:text-start">
+              <ul
+                key={i}
+                className="list-none space-y-2 text-sm text-center md:text-start"
+              >
                 {group.map(([label, path]) => (
                   <li key={path}>
                     <Link

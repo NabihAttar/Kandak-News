@@ -111,7 +111,7 @@ const totalPages = 7; // set the real number if you have it
             href={post.link || "#"}
             className="block group rounded overflow-hidden shadow-lg"
           >
-            <div className="relative">
+            <div className="relative" >
               <img
                 src={post.image}
                 alt={post.title}

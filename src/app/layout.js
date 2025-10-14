@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
         <I18nProvider>
           <ClientLangSync />
           <Navbar />
-          <main>{children}</main>
+          <main className="bg-white">{children}</main>
           <Footer />
         </I18nProvider>
       </body>

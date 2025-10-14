@@ -59,9 +59,9 @@ function PostCard({ imageUrl, title, date, newsCount }) {
 export default function PostsList() {
   return (
     <div>
-<h1 className="text-3xl font-bold mb-4 text-red-600" dir="rtl"> 
-Related Posts
-</h1>      {posts.map(({ id, imageUrl, title, date, newsCount }) => (
+      <h1 className="text-3xl font-bold mb-4 text-red-600 text-start">Related Posts</h1>
+
+      {posts.map(({ id, imageUrl, title, date, newsCount }) => (
         <PostCard
           key={id}
           imageUrl={imageUrl}
