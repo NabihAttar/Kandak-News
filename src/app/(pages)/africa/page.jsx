@@ -13,21 +13,18 @@ export default function Africa() {
 
   const posts = [
     {
-      // link: "https://al-khandak.com/posts/sankara-alnby-almsl-h-aljza-alawl",
       img: "https://al-khandak.com/storage/posts/November2022/fche4zVOOT00AVoIDLTP.jpg",
       title: "سانكارا: النبي المسلّح (الجزء الأول)",
       date: "02/11/2022",
       count: 12,
     },
     {
-      // link: "https://al-khandak.com/posts/السباق-الليبي-رهانات-النفوذ-والصراع-على-الطاقة",
       img: "https://al-khandak.com/storage/posts/old/1587304917_894055654.jpeg",
       title: "السباق الليبي: رهانات النفوذ والصراع على الطاقة",
       date: "13/11/2021",
       count: 1,
     },
     {
-      // link: "https://al-khandak.com/posts/الأدب-الأفريقي-الحديث-بين-نموذجين-شوقي-وسيزير",
       img: "https://al-khandak.com/storage/posts/old/1587308114_260391555.jpeg",
       title: "الأدب الأفريقي الحديث بين نموذجين: شوقي وسيزير",
       date: "13/11/2021",
@@ -36,7 +33,7 @@ export default function Africa() {
     // add more posts here…
   ];
 
-  const perPage = 6; // how many cards per page
+  const perPage = 6;
   const [page, setPage] = useState(1);
 
   const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
@@ -72,14 +69,8 @@ export default function Africa() {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white rounded">
                 <p className="font-semibold">{post.title}</p>
                 <div className="flex justify-between text-sm text-gray-300 mt-1">
-                  <p>
-                    <i className="fas fa-clock mr-1" />
-                    {post.date}
-                  </p>
-                  <p>
-                    <i className="fas fa-newspaper mr-1" />
-                    {post.count}
-                  </p>
+                  <p><i className="fas fa-clock mr-1" />{post.date}</p>
+                  <p><i className="fas fa-newspaper mr-1" />{post.count}</p>
                 </div>
               </div>
             </a>
@@ -95,13 +86,25 @@ export default function Africa() {
             <button
               onClick={goPrev}
               disabled={page === 1}
-              className={`px-3 py-1 rounded-md ${
+              aria-label="Previous page"
+              className={`inline-flex items-center justify-center w-10 h-10 rounded-md ${
                 page === 1
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-gray-800 text-white hover:bg-red-600"
               }`}
             >
-              ‹
+              <svg
+                className="w-4 h-4 rtl:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
             </button>
           </li>
 
@@ -110,7 +113,7 @@ export default function Africa() {
             <li key={p}>
               <button
                 onClick={() => setPage(p)}
-                className={`px-3 py-1 rounded-md ${
+                className={`inline-flex items-center justify-center w-10 h-10 rounded-md leading-none ${
                   p === page
                     ? "bg-red-500 text-white"
                     : "bg-gray-800 text-white hover:bg-red-600"
@@ -126,13 +129,25 @@ export default function Africa() {
             <button
               onClick={goNext}
               disabled={page === totalPages}
-              className={`px-3 py-1 rounded-md ${
+              aria-label="Next page"
+              className={`inline-flex items-center justify-center w-10 h-10 rounded-md ${
                 page === totalPages
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-800 text-white hover:bg-red-600"
+                  : "bg-gray-800 text-white hover:bg-blue-600"
               }`}
             >
-              ›
+              <svg
+                className="w-4 h-4 rtl:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
             </button>
           </li>
         </ul>

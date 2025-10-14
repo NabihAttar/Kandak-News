@@ -70,29 +70,68 @@ export default function IsraeliOccupationGrid() {
         ))}
       </div>
 
-      <div className="flex justify-center mt-8">
-        <ul className="flex items-center gap-2">
-          <li>
-            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
-          </li>
-          {pages.map((page) => (
-            <li key={page}>
-              <a
-                className={`px-3 py-1 rounded-md ${
-                  page === pagination.currentPage
-                    ? "bg-red-500 text-white"
-                    : "bg-gray-800 text-white hover:bg-red-600"
-                }`}
-              >
-                {page}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a className="px-3 py-1 bg-gray-800 text-white hover:bg-red-600 rounded-md">›</a>
-          </li>
-        </ul>
-      </div>
+     <div className="flex justify-center mt-8">
+  <ul className="flex items-center gap-2">
+    {/* Prev */}
+    <li>
+      <button
+        className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-gray-700 text-gray-400 cursor-not-allowed"
+        disabled
+        aria-label="Previous page"
+      >
+        {/* left chevron */}
+        <svg
+          className="w-4 h-4 rtl:rotate-180"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+    </li>
+
+    {pages.map((page) => (
+      <li key={page}>
+        <a
+          className={`inline-flex items-center justify-center w-10 h-10 rounded-md leading-none ${
+            page === 1 ? "bg-red-500 text-white" : "bg-gray-800 text-white hover:bg-red-600"
+          }`}
+        >
+          {page}
+        </a>
+      </li>
+    ))}
+
+    {/* Next */}
+    <li>
+      <a
+        className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-gray-800 text-white hover:bg-blue-600"
+        aria-label="Next page"
+      >
+        {/* right chevron */}
+        <svg
+          className="w-4 h-4 rtl:rotate-180"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M9 6l6 6-6 6" />
+        </svg>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
     </div>
   );
 }
