@@ -19,47 +19,53 @@ import {
 export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }) {
   const { t } = useTranslation("common");
 
-  // Auto-detect dir from <html dir>, and keep it in sync when it changes
+  // Track <html dir> and map to side when no explicit prop is given
   const [autoSide, setAutoSide] = useState("right");
   useEffect(() => {
     const compute = () =>
       (document?.documentElement?.getAttribute("dir") || "rtl") === "rtl" ? "right" : "left";
     setAutoSide(compute());
-
     const mo = new MutationObserver(() => setAutoSide(compute()));
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["dir"] });
     return () => mo.disconnect();
   }, []);
 
-  const effectiveSide = side || autoSide;            // "right" in AR (rtl), "left" in EN (ltr)
-  const isLeft = effectiveSide === "left";           // ✅ FIXED (was inverted before)
+  const effectiveSide = side || autoSide;           // "right" for RTL, "left" for LTR
+  const isLeft = effectiveSide === "left";
+
+  // When CLOSED, don't animate transform (prevents the cross-screen slide on lang toggle)
+  const transitionClass = isOpen ? "transition-transform duration-300" : "transition-none";
+
+  // Position & transform
   const sideClass = isLeft ? "left-0" : "right-0";
   const translateClosed = isLeft ? "-translate-x-full" : "translate-x-full";
+  const panelTransform = isOpen ? "translate-x-0" : translateClosed;
+
   const closeBtnSide = isLeft ? "right-2" : "left-2";
   const Chevron = isLeft ? FaChevronLeft : FaChevronRight;
 
   const menuItems = useMemo(
     () => [
-      { label: t("home"),          icon: <Chevron />,        path: "/" },
-      { label: t("cat.editorial"), icon: <FaBullhorn />,     path: "/editorial-article" },
-      { label: t("cat.israelis"),  icon: <FaStarOfDavid />,  path: "/israeli-occupation" },
-      { label: t("cat.international"), icon: <FaGlobe />,    path: "/international-affairs" },
-      { label: t("cat.africa"),    icon: <FaFlag />,         path: "/africa" },
-      { label: t("cat.locals"),    icon: <FaMapMarkerAlt />, path: "/mhlyat" },
-      { label: t("cat.opinion"),   icon: <FaComments />,     path: "/opinion" },
-      { label: t("cat.economy"),   icon: <FaFlag />,         path: "/economy" },
-      { label: t("cat.philosophy"),icon: <FaBook />,         path: "/philosophy" },
-      { label: t("cat.cultureMedia"), icon: <FaTheaterMasks />, path: "/culture-and-media" },
-      { label: t("cat.sports"),    icon: <FaBasketballBall />, path: "/sports" },
-      { label: t("cat.folders"),   icon: null,               path: "/folders" },
-      { label: t("cat.videos"),    icon: null,               path: "/videos" },
-      { label: t("cat.infographics"), icon: null,            path: "/infographics" },
-      { label: t("cat.contact"),   icon: null,               path: "/contact-us" },
+      { label: t("home"),              icon: <Chevron />,         path: "/" },
+      { label: t("cat.editorial"),     icon: <FaBullhorn />,      path: "/editorial-article" },
+      { label: t("cat.israelis"),      icon: <FaStarOfDavid />,   path: "/israeli-occupation" },
+      { label: t("cat.international"), icon: <FaGlobe />,         path: "/international-affairs" },
+      { label: t("cat.africa"),        icon: <FaFlag />,          path: "/africa" },
+      { label: t("cat.locals"),        icon: <FaMapMarkerAlt />,  path: "/mhlyat" },
+      { label: t("cat.opinion"),       icon: <FaComments />,      path: "/opinion" },
+      { label: t("cat.economy"),       icon: <FaFlag />,          path: "/economy" },
+      { label: t("cat.philosophy"),    icon: <FaBook />,          path: "/philosophy" },
+      { label: t("cat.cultureMedia"),  icon: <FaTheaterMasks />,  path: "/culture-and-media" },
+      { label: t("cat.sports"),        icon: <FaBasketballBall />,path: "/sports" },
+      { label: t("cat.folders"),       icon: null,                path: "/folders" },
+      { label: t("cat.videos"),        icon: null,                path: "/videos" },
+      { label: t("cat.infographics"),  icon: null,                path: "/infographics" },
+      { label: t("cat.contact"),       icon: null,                path: "/contact-us" },
     ],
-    [t, isLeft] // re-compute when language or direction changes (Chevron flips)
+    [t, isLeft]
   );
 
-  // Close on Esc + lock body scroll when open
+  // Esc to close + lock scroll
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && isOpen && setIsOpen(false);
     document.addEventListener("keydown", onKey);
@@ -84,9 +90,9 @@ export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }
       <aside
         role="dialog"
         aria-modal="true"
+        aria-hidden={!isOpen}
         className={`absolute top-0 ${sideClass} h-full ${widthClass} bg-gray-100 text-black p-4 overflow-y-auto
-          transition-transform duration-300 z-40 scrollbar-hide
-          ${isOpen ? "translate-x-0" : translateClosed}`}
+          ${transitionClass} z-40 scrollbar-hide ${panelTransform}`}
       >
         <button
           type="button"

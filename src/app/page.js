@@ -75,10 +75,10 @@ export default function Home() {
       {/* <LatestIssueButton /> */}
 
       <LocalNewsSection
-        leftTitle="محليات"
+        leftTitleKey="sections.locals"
         leftHref="/categories/mhlyat"
         leftPosts={localPosts}
-        rightTitle="عربي ودولي"
+        rightTitleKey="sections.international"
         rightHref="/categories/international-affairs"
         rightPosts={internationalPosts}
       />
@@ -86,20 +86,20 @@ export default function Home() {
       <VideoSection />
 
       <LocalNewsSection
-        leftTitle="رأي"
+        leftTitleKey="sections.opinion"
         leftHref="/categories/economy"
         leftPosts={localPosts}
-        rightTitle="اسرائيات"
+        rightTitleKey="sections.israelis"
         rightHref="/categories/culture-and-media"
         rightPosts={internationalPosts}
       />
       <InfographicsSection items={infographicItems} />
 
       <LocalNewsSection
-        leftTitle="ثقافة و ميديا"
+        leftTitleKey="sections.cultureMedia"
         leftHref="/categories/economy"
         leftPosts={localPosts}
-        rightTitle="فلسفة"
+        rightTitleKey="sections.philosophy"
         rightHref="/categories/culture-and-media"
         rightPosts={internationalPosts}
       />
@@ -107,15 +107,15 @@ export default function Home() {
       <InfographicsSection items={infographicItems} />
 
       <LocalNewsSection
-        leftTitle="افريقيا"
+        leftTitleKey="sections.africa"
         leftHref="/categories/economy"
         leftPosts={localPosts}
-        rightTitle="رياضة"
+        rightTitleKey="sections.sports"
         rightHref="/categories/culture-and-media"
         rightPosts={internationalPosts}
       />
 
-      
+
     </main>
   );
 

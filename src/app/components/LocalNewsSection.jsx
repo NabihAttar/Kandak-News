@@ -1,15 +1,41 @@
 "use client";
-import React from "react";
-import { CalendarDays, Newspaper, ChevronLeft } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { CalendarDays, Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function LocalNewsSection({
+  // EITHER pass a translation key...
+  leftTitleKey,
+  rightTitleKey,
+  // ...OR pass a plain string title (fallback if key missing)
   leftTitle,
-  leftHref,
-  leftPosts = [],
   rightTitle,
+  leftHref,
   rightHref,
+  leftPosts = [],
   rightPosts = [],
 }) {
+  const { t } = useTranslation("common");
+  const [mounted, setMounted] = useState(false);
+  const [dir, setDir] = useState("rtl");
+
+  useEffect(() => {
+    setMounted(true);
+    const getDir = () => document?.documentElement?.getAttribute("dir") || "rtl";
+    setDir(getDir());
+    const mo = new MutationObserver(() => setDir(getDir()));
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["dir"] });
+    return () => mo.disconnect();
+  }, []);
+
+  if (!mounted) return null;
+
+  const Chevron = dir === "rtl" ? ChevronLeft : ChevronRight;
+
+  // Prefer key if provided; fall back to plain text; fall back to key text
+  const leftTitleText  = leftTitleKey  ? t(leftTitleKey,  { defaultValue: leftTitle  ?? leftTitleKey  }) : (leftTitle  ?? "");
+  const rightTitleText = rightTitleKey ? t(rightTitleKey, { defaultValue: rightTitle ?? rightTitleKey }) : (rightTitle ?? "");
+
   return (
     <section className="max-w-6xl mx-auto px-4 py-6 pb-[70px]">
       <div className="flex flex-col md:flex-row">
@@ -20,8 +46,8 @@ export default function LocalNewsSection({
               href={leftHref}
               className="text-black hover:text-orange-700 flex items-center gap-2 cursor-pointer"
             >
-              {leftTitle}
-              <ChevronLeft size={18} />
+              {leftTitleText}
+              <Chevron size={18} />
             </a>
           </h4>
 
@@ -59,8 +85,8 @@ export default function LocalNewsSection({
               href={rightHref}
               className="text-black hover:text-orange-700 flex items-center gap-2 cursor-pointer"
             >
-              {rightTitle}
-              <ChevronLeft size={18} />
+              {rightTitleText}
+              <Chevron size={18} />
             </a>
           </h4>
 

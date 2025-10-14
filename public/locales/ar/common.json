@@ -14,6 +14,7 @@
     "emailPlaceholder": "البريد الإلكتروني",
     "subscribe": "اشتراك"
   },
+  "home": "الرئيسية",
   "cat": {
     "editorial": "افتتاحية",
     "israelis": "اسرائيليات",
@@ -40,5 +41,20 @@
     "title": "إنفوغرافيك",
     "viewMore": "مشاهدة المزيد",
     "openAria": "عرض الإنفوغرافيك: {{title}}"
+  },
+   "infographicsSection": {
+    "title": "إنفوغرافيك",
+    "viewMore": "مشاهدة المزيد",
+    "openAria": "عرض الإنفوغرافيك: {{title}}"
+  }  
+  , "sections": {
+    "locals": "محليات",
+    "international": "عربي ودولي",
+    "opinion": "رأي",
+    "israelis": "اسرائيليات",
+    "cultureMedia": "ثقافة وميديا",
+    "philosophy": "فلسفة",
+    "africa": "افريقيا",
+    "sports": "رياضة"
   }
 }

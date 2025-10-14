@@ -11,9 +11,6 @@ export default function LatestIssueButton() {
         <h4 >العدد الأخير</h4>
       </button>
 
-
-
-
     </div>
   );
 }

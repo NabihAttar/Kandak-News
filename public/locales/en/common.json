@@ -14,6 +14,7 @@
     "emailPlaceholder": "Email address",
     "subscribe": "Subscribe"
   },
+  "home": "Home",
   "cat": {
     "editorial": "Editorial",
     "israelis": "Israeli Occupation",
@@ -38,7 +39,20 @@
   "close": "Close",
   "title": "Infographics",
   "viewMore": "View more",
-  "openAria": "Open infographic: {{title}}"
-
-  
+  "openAria": "Open infographic: {{title}}",
+  "infographicsSection": {
+    "title": "Infographics",
+    "viewMore": "View more",
+    "openAria": "Open infographic: {{title}}"
+  },
+  "sections": {
+    "locals": "Local",
+    "international": "International Affairs",
+    "opinion": "Opinion",
+    "israelis": "Israeli Occupation",
+    "cultureMedia": "Culture & Media",
+    "philosophy": "Philosophy",
+    "africa": "Africa",
+    "sports": "Sports"
+  }
 }
