@@ -32,7 +32,6 @@ export default function LocalNewsSection({
 
   const Chevron = dir === "rtl" ? ChevronLeft : ChevronRight;
 
-  // Prefer key if provided; fall back to plain text; fall back to key text
   const leftTitleText  = leftTitleKey  ? t(leftTitleKey,  { defaultValue: leftTitle  ?? leftTitleKey  }) : (leftTitle  ?? "");
   const rightTitleText = rightTitleKey ? t(rightTitleKey, { defaultValue: rightTitle ?? rightTitleKey }) : (rightTitle ?? "");
 

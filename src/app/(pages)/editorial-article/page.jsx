@@ -1,5 +1,6 @@
-// src/components/EditorialArticleGrid.jsx
+"use client";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 const editorialItems = [
   {
@@ -38,17 +39,28 @@ const editorialItems = [
     url: "/editorial-article/5",
   },
 ];
- const totalPages = 7; // set the real number if you have it
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const pagination = {
-    currentPage: 1,
-    totalPages,
-    // baseUrl: "/philosophy?page=",
-  }
+
+const totalPages = 7; // set the real number if you have it
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const pagination = {
+  currentPage: 1,
+  totalPages,
+  // baseUrl: "/editorial?page=",
+};
+
 export default function EditorialArticleGrid() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  const title = t("cat.editorial", {
+    defaultValue: i18n.language?.startsWith("en") ? "Editorial" : "افتتاحية",
+  });
+
   return (
-    <div className="container mx-auto  px-4 bg-white pb-[70px]">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pt-[50px] pb-[14px]">افتتاحية</h1>
+    <div className="container mx-auto px-4 bg-white pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pt-[50px] pb-[14px] ltr:text-left rtl:text-right">
+        {title}
+      </h1>
 
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
         {editorialItems.map((item, idx) => (
@@ -60,9 +72,7 @@ export default function EditorialArticleGrid() {
                   alt={item.title}
                   className="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-4"> */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
-
                   <div className="text-white font-semibold text-lg leading-tight">
                     {item.title}
                   </div>
@@ -110,7 +120,8 @@ export default function EditorialArticleGrid() {
       </div>
 
       <div className="w-full text-center mt-5">{/* optional more button */}</div>
-        <div className="flex justify-center mt-8">
+
+      <div className="flex justify-center mt-8">
         <ul className="flex items-center gap-2">
           {/* Prev (disabled for page 1) */}
           <li>

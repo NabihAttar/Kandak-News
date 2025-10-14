@@ -76,10 +76,10 @@ export default function Home() {
 
       <LocalNewsSection
         leftTitleKey="sections.locals"
-        leftHref="/categories/mhlyat"
+        leftHref="/mhlyat"
         leftPosts={localPosts}
         rightTitleKey="sections.international"
-        rightHref="/categories/international-affairs"
+        rightHref="/international-affairs"
         rightPosts={internationalPosts}
       />
 
@@ -87,20 +87,20 @@ export default function Home() {
 
       <LocalNewsSection
         leftTitleKey="sections.opinion"
-        leftHref="/categories/economy"
+        leftHref="/opinion"
         leftPosts={localPosts}
         rightTitleKey="sections.israelis"
-        rightHref="/categories/culture-and-media"
+        rightHref="/israeli-occupation"
         rightPosts={internationalPosts}
       />
       <InfographicsSection items={infographicItems} />
 
       <LocalNewsSection
         leftTitleKey="sections.cultureMedia"
-        leftHref="/categories/economy"
+        leftHref="/culture-and-media"
         leftPosts={localPosts}
         rightTitleKey="sections.philosophy"
-        rightHref="/categories/culture-and-media"
+        rightHref="/philosophy"
         rightPosts={internationalPosts}
       />
 
@@ -108,10 +108,10 @@ export default function Home() {
 
       <LocalNewsSection
         leftTitleKey="sections.africa"
-        leftHref="/categories/economy"
+        leftHref="/africa"
         leftPosts={localPosts}
         rightTitleKey="sections.sports"
-        rightHref="/categories/culture-and-media"
+        rightHref="/sports"
         rightPosts={internationalPosts}
       />
 

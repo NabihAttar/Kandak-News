@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const videos = [
   {
@@ -33,9 +34,20 @@ const videos = [
 ];
 
 export default function VideoGallery() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  // Only the page title translates
+  const title = t("cat.videos", {
+    defaultValue: i18n.language?.startsWith("en") ? "Videos" : "فيديو",
+  });
+
   return (
     <div className="container mx-auto px-4 pb-[70px]">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">فيديو</h1>
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px] ltr:text-left rtl:text-right">
+        {title}
+      </h1>
+
       <div className="flex flex-col lg:flex-row mt-5 gap-6">
         {/* Left big video */}
         <div className="lg:w-1/2 w-full">

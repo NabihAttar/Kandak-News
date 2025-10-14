@@ -176,7 +176,6 @@
 //     </>
 //   );
 // }
-
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -302,7 +301,8 @@ export default function Navbar({
 
           {/* =================== MOBILE (< lg) =================== */}
           <div className="flex flex-col lg:hidden">
-            <div className="relative flex items-center justify-between">
+            {/* CHANGED LINE: add min-h to create vertical space */}
+            <div className="relative flex items-center justify-between min-h-[88px]">
               <button
                 onClick={switchLanguage}
                 className="bg-gray-200 text-black font-bold px-4 py-2 rounded"
@@ -319,7 +319,8 @@ export default function Navbar({
                 <FaBars />
               </button>
 
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+              {/* CHANGED LINE: inset-x-0 + top/bottom to push logo away from edges */}
+              <div className="absolute inset-x-0 top-3 bottom-3 pointer-events-none flex items-center justify-center">
                 <img
                   src="/images/logo.svg"
                   alt={t("brandAlt")}

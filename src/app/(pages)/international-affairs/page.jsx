@@ -1,6 +1,16 @@
+"use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function InternationalAffairs() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  // Only the title is translated
+  const title = t("cat.international", {
+    defaultValue: i18n.language?.startsWith("en") ? "International Affairs" : "عربي ودولي",
+  });
+
   const posts = [
     {
       title: ' "إسرائيل" وسوريا... والماء ثالثهما',
@@ -26,11 +36,13 @@ export default function InternationalAffairs() {
     // ...add other posts here
   ];
 
-  const pages = [1, 2, 3, 4, 5, 6, 7,];
+  const pages = [1, 2, 3, 4, 5, 6, 7];
 
   return (
     <div className="container mx-auto  px-4 pb-[70px]">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">عربي ودولي</h1>
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px] ltr:text-left rtl:text-right">
+        {title}
+      </h1>
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -75,10 +87,11 @@ export default function InternationalAffairs() {
             <li key={page}>
               <a
                 // href={`https://al-khandak.com/categories/international-affairs?page=${page}`}
-                className={`px-3 py-1 rounded-md ${page === 1
+                className={`px-3 py-1 rounded-md ${
+                  page === 1
                     ? "bg-red-500 text-white"
                     : "bg-gray-800 text-white hover:bg-red-600"
-                  }`}
+                }`}
               >
                 {page}
               </a>

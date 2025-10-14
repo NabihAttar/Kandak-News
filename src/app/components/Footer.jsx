@@ -29,9 +29,7 @@ export default function Footer() {
   return (
     <div className="w-full bg-gray-100">
       <div className="container mx-auto px-4 py-10">
-        {/* Center on mobile; normal align on md+ */}
         <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
-          {/* Subscription Box */}
           <div className="bg-gray-300 text-black p-6 md:w-1/4 w-full text-center">
             <p className="mb-4">{t("newsletter.title")}</p>
 
@@ -51,7 +49,6 @@ export default function Footer() {
             </button>
           </div>
 
-          {/* Links Grid */}
           <div
             className="
               w-full flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-10

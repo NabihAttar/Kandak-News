@@ -78,7 +78,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // Default Arabic/RTL on first paint; ClientLangSync will correct on the client
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body className="bg-white">

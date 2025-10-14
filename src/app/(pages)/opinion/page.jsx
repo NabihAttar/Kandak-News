@@ -1,27 +1,42 @@
+"use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function OpinionSection() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  // Only the title translates
+  const title = t("cat.opinion", {
+    defaultValue: i18n.language?.startsWith("en") ? "Opinion" : "رأي",
+  });
+
   const posts = [
     {
       title: "من وحدة الساحات إلى ميثاق الثغور",
       date: "01/04/2025",
       views: 13,
-      image: "https://al-khandak.com/storage/posts/April2025/ZJnMSz2v83yVIA9lGDRB.jpg",
-    //   link: "https://al-khandak.com/posts/mn-whdh-alsahat-ila-mythaq-althghwr",
+      image:
+        "https://al-khandak.com/storage/posts/April2025/ZJnMSz2v83yVIA9lGDRB.jpg",
+      // link: "https://al-khandak.com/posts/mn-whdh-alsahat-ila-mythaq-althghwr",
     },
     {
-      title: "تقاطعات الاستعمار المعرفي: الاغتصاب واستحقاق المستوطن",
+      title:
+        "تقاطعات الاستعمار المعرفي: الاغتصاب واستحقاق المستوطن",
       date: "29/03/2025",
       views: 13,
-      image: "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg",
-    //   link: "https://al-khandak.com/posts/tqataat-alastamar-almarfy-alaghtsab-wasthqaq-almstwtn",
+      image:
+        "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg",
+      // link: "https://al-khandak.com/posts/tqataat-alastamar-almarfy-alaghtsab-wasthqaq-almstwtn",
     },
     {
-      title: "الحرب الإقليمية على نفوذ إيران في الشرق الأوسط",
+      title:
+        "الحرب الإقليمية على نفوذ إيران في الشرق الأوسط",
       date: "18/03/2025",
       views: 13,
-      image: "https://al-khandak.com/storage/posts/March2025/kxCtNXJrpKZZyvBJ8Oyt.jpg",
-    //   link: "https://al-khandak.com/posts/alhrb-aliqlymyh-ala-nfwth-iyran-fy-alshrq-alawst",
+      image:
+        "https://al-khandak.com/storage/posts/March2025/kxCtNXJrpKZZyvBJ8Oyt.jpg",
+      // link: "https://al-khandak.com/posts/alhrb-aliqlymyh-ala-nfwth-iyran-fy-alshrq-alawst",
     },
     // add the rest of your posts here...
   ];
@@ -32,11 +47,13 @@ export default function OpinionSection() {
     currentPage: 1,
     totalPages: pages.length,
     // baseUrl: "/opinion?page=",
-  }
+  };
 
   return (
-    <div className="container mx-auto  px-4 pb-[70px]">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">رأي</h1>
+    <div className="container mx-auto px-4 pb-[70px]">
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px] ltr:text-left rtl:text-right">
+        {title}
+      </h1>
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -46,7 +63,7 @@ export default function OpinionSection() {
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-[300px] object-cover rounded group-hover:opacity-90 transition "
+                className="w-full h-[300px] object-cover rounded group-hover:opacity-90 transition"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white rounded">
                 <h2 className="text-lg font-bold mb-2">{post.title}</h2>
@@ -67,45 +84,13 @@ export default function OpinionSection() {
       </div>
 
       {/* Pagination */}
-      {/* <div className="flex justify-center mt-10">
-        <ul className="flex items-center space-x-1 rtl:space-x-reverse">
-          <li>
-            <span className="px-3 py-1 text-gray-500 bg-gray-800 rounded cursor-not-allowed">
-              ‹
-            </span>
-          </li>
-          {pages.map((page, idx) => (
-            <li key={idx}>
-              {page === 1 ? (
-                <span className="px-3 py-1 bg-blue-600 text-white rounded">
-                  {page}
-                </span>
-              ) : (
-                <a
-                //   href={`https://al-khandak.com/categories/opinion?page=${page}`}
-                  className="px-3 py-1 bg-gray-800 text-white rounded hover:bg-blue-600"
-                >
-                  {page}
-                </a>
-              )}
-            </li>
-          ))}
-          <li>
-            <a
-            //   href="https://al-khandak.com/categories/opinion?page=2"
-              className="px-3 py-1 bg-gray-800 text-white rounded hover:bg-blue-600"
-            >
-              ›
-            </a>
-          </li>
-        </ul>
-      </div> */}
-
-      <div className="flex justify-center mt-8" dir="rtl">
+      <div className="flex justify-center mt-8">
         <ul className="flex items-center gap-2">
           {/* Prev */}
           <li>
-            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">‹</span>
+            <span className="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
+              ‹
+            </span>
           </li>
 
           {/* Page numbers */}

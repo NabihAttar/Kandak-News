@@ -1,6 +1,16 @@
+"use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function FilesSection() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  // Only the title translates
+  const title = t("cat.folders", {
+    defaultValue: i18n.language?.startsWith("en") ? "Folders" : "ملفات",
+  });
+
   const files = [
     {
       title: "عنوان",
@@ -18,8 +28,8 @@ export default function FilesSection() {
 
   return (
     <div className="container mx-auto px-4 pb-[70px]">
-      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px]">
-        ملفات
+      <h1 className="text-black ms-5 mb-4 text-3xl font-bold pb-[14px] pt-[50px] ltr:text-left rtl:text-right">
+        {title}
       </h1>
 
       <div className="grid gap-2 grid-cols-1 lg:grid-cols-3">
@@ -45,7 +55,7 @@ export default function FilesSection() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-8" dir="rtl">
+      <div className="flex justify-center mt-8">
         <ul className="flex items-center gap-2">
           {/* Prev (disabled on page 1) */}
           <li>

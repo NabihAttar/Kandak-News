@@ -1,8 +1,16 @@
-'use client';
-import React, { useMemo, useState } from 'react';
-const pages = [1, 2, 3];
+"use client";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Africa() {
+  const { t, ready, i18n } = useTranslation("common");
+  if (!ready) return null;
+
+  // Only the title translates
+  const title = t("cat.africa", {
+    defaultValue: i18n.language?.startsWith("en") ? "Africa" : "افريقيا",
+  });
+
   const posts = [
     {
       // link: "https://al-khandak.com/posts/sankara-alnby-almsl-h-aljza-alawl",
@@ -28,11 +36,14 @@ export default function Africa() {
     // add more posts here…
   ];
 
-  const perPage = 6;                    // how many cards per page
+  const perPage = 6; // how many cards per page
   const [page, setPage] = useState(1);
 
   const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
-  const pages = useMemo(() => Array.from({ length: totalPages }, (_, i) => i + 1), [totalPages]);
+  const pageList = useMemo(
+    () => Array.from({ length: totalPages }, (_, i) => i + 1),
+    [totalPages]
+  );
 
   const pagedPosts = useMemo(() => {
     const start = (page - 1) * perPage;
@@ -44,13 +55,15 @@ export default function Africa() {
 
   return (
     <div className="container mx-auto px-4 pb-[70px]">
-      <h1 className="text-black mb-6 ms-5 text-3xl font-bold pt-[50px] pb-[14px]">افريقيا</h1>
+      <h1 className="text-black mb-6 ms-5 text-3xl font-bold pt-[50px] pb-[14px] ltr:text-left rtl:text-right">
+        {title}
+      </h1>
 
       {/* Posts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {pagedPosts.map((post, index) => (
           <div key={index} className="relative">
-            <a href={post.link ?? '#'} target="_blank" rel="noopener noreferrer">
+            <a href={post.link ?? "#"} target="_blank" rel="noopener noreferrer">
               <img
                 src={post.img}
                 alt={post.title}
@@ -75,7 +88,7 @@ export default function Africa() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-8" dir="rtl">
+      <div className="flex justify-center mt-8">
         <ul className="flex items-center gap-2">
           {/* Prev */}
           <li>
@@ -84,8 +97,8 @@ export default function Africa() {
               disabled={page === 1}
               className={`px-3 py-1 rounded-md ${
                 page === 1
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gray-800 text-white hover:bg-red-600'
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-800 text-white hover:bg-red-600"
               }`}
             >
               ‹
@@ -93,12 +106,14 @@ export default function Africa() {
           </li>
 
           {/* Page numbers */}
-          {pages.map((p) => (
+          {pageList.map((p) => (
             <li key={p}>
               <button
                 onClick={() => setPage(p)}
                 className={`px-3 py-1 rounded-md ${
-                  p === page ? 'bg-red-500 text-white' : 'bg-gray-800 text-white hover:bg-red-600'
+                  p === page
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-800 text-white hover:bg-red-600"
                 }`}
               >
                 {p}
@@ -113,8 +128,8 @@ export default function Africa() {
               disabled={page === totalPages}
               className={`px-3 py-1 rounded-md ${
                 page === totalPages
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gray-800 text-white hover:bg-red-600'
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-800 text-white hover:bg-red-600"
               }`}
             >
               ›
