@@ -1,0 +1,6 @@
+import apiService from "./apiServices.js";
+
+const TOKEN = `Bearer b136b4246b4fecfa33eb18683e751d24b6b0073c6de13e8f7bdcadbf89192afd06c52988be4b91d3f339f29313d6d1aed4ea8cadb3c9c736b88dea2e514173f72b64570e5c7e19a88c2a07b98f9882b12b468f0cbdb5ab81ab45b6cc1c606a2933ee887e1eb0faf5b0121c53e1be87aa4512cfd5fc5780f9ef3a1e28fe46fa3c`;
+
+// Set the token for API calls
+apiService.setToken(TOKEN);
