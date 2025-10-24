@@ -73,11 +73,54 @@ export default async function Home({ params }) {
   // Fetch homepage data with the current language
   const homepageData = await getHomepage(lang);
   const bannerData = homepageData?.data?.banner;
-
+  const localAndInternationalData =
+    homepageData?.data?.localandinternationalaffairs;
+  const videoData = homepageData?.data?.video;
+  const opinionData = homepageData?.data?.opinion;
+  const cultureAndPhilosophyData = homepageData?.data?.cultureAndPhilosophy;
   // Debug logging
-  console.log("Homepage data:", homepageData);
-  console.log("Banner data:", bannerData);
-  console.log("Banner articles:", bannerData?.articles);
+  console.log("Homepage data:", homepageData.data.opinion);
+
+  // Transform API data to match component expectations
+  const transformPostData = (posts) => {
+    return (
+      posts?.map((post) => ({
+        title: post.title,
+        date:
+          post.datePublished ||
+          new Date(post.publishedAt).toLocaleDateString("en-GB"),
+        views: "0", // API doesn't provide view count
+        image: `http://46.62.165.97:1337${post.cover?.url}` || "",
+        url: `/${lang}/article/${post.slug}`,
+      })) || []
+    );
+  };
+
+  const localPostsFromAPI = transformPostData(localAndInternationalData?.local);
+  const internationalPostsFromAPI = transformPostData(
+    localAndInternationalData?.internations
+  );
+  const opinionPostsFromAPI = transformPostData(opinionData?.opinions);
+  const israelisPostsFromAPI = transformPostData(opinionData?.israelis);
+  const culturePostsFromAPI = transformPostData(
+    cultureAndPhilosophyData?.cultures
+  );
+  const philosophyPostsFromAPI = transformPostData(
+    cultureAndPhilosophyData?.philosophies
+  );
+
+  // Transform video data to match component expectations
+  const transformVideoData = (videos) => {
+    return (
+      videos?.map((video) => ({
+        id: video.videolink,
+        title_ar: video.title,
+        date: video.date,
+      })) || []
+    );
+  };
+
+  const videosFromAPI = transformVideoData(videoData);
 
   return (
     <main className="bg-white">
@@ -87,21 +130,21 @@ export default async function Home({ params }) {
       <LocalNewsSection
         leftTitleKey="sections.locals"
         leftHref={`/${lang}/mhlyat`}
-        leftPosts={localPosts}
+        leftPosts={localPostsFromAPI}
         rightTitleKey="sections.international"
         rightHref={`/${lang}/international-affairs`}
-        rightPosts={internationalPosts}
+        rightPosts={internationalPostsFromAPI}
       />
 
-      <VideoSection />
+      <VideoSection items={videosFromAPI} />
 
       <LocalNewsSection
         leftTitleKey="sections.opinion"
         leftHref={`/${lang}/opinion`}
-        leftPosts={localPosts}
+        leftPosts={opinionPostsFromAPI}
         rightTitleKey="sections.israelis"
         rightHref={`/${lang}/israeli-occupation`}
-        rightPosts={internationalPosts}
+        rightPosts={israelisPostsFromAPI}
       />
 
       <InfographicsSection items={infographicItems} />
@@ -109,10 +152,10 @@ export default async function Home({ params }) {
       <LocalNewsSection
         leftTitleKey="sections.cultureMedia"
         leftHref={`/${lang}/culture-and-media`}
-        leftPosts={localPosts}
+        leftPosts={culturePostsFromAPI}
         rightTitleKey="sections.philosophy"
         rightHref={`/${lang}/philosophy`}
-        rightPosts={internationalPosts}
+        rightPosts={philosophyPostsFromAPI}
       />
 
       <InfographicsSection items={infographicItems} />
