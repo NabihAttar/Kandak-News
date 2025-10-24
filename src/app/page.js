@@ -1,11 +1,14 @@
 // src/app/page.js
+"use client";
+import { useEffect, useState } from "react";
 import HeroSection from "./components/HeroSection";
-import HighlightsSection from "./components/HighlightsSection";
 import LatestIssueButton from "./components/LatestIssueButton";
 import LocalNewsSection from "./components/LocalNewsSection";
 import VideoSection from "./components/VideoSection";
 import InfographicsSection from "./components/InfographicsSection";
 import EditorialArticleGrid from "./(pages)/editorial-article/page";
+import { getArticles, getHomepage, clearCache } from "../core/repo.js";
+import i18n from "i18next";
 
 const localPosts = [
   {
@@ -76,10 +79,77 @@ const infographicItems = [
   },
 ];
 export default function Home() {
+  const [bannerData, setBannerData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Function to manually refresh data (clears cache and refetches)
+  const refreshData = async () => {
+    clearCache();
+    setIsLoading(true);
+    try {
+      const articles = await getHomepage();
+      if (articles?.data?.banner) {
+        setBannerData(articles.data.banner);
+      }
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchArticles = async (locale = null) => {
+      try {
+        setIsLoading(true);
+        const articles = await getHomepage(locale);
+        console.log("Articles response:", articles);
+
+        // Extract banner data from the response
+        if (articles?.data?.banner) {
+          setBannerData(articles.data.banner);
+        }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Initial fetch
+    fetchArticles();
+
+    // Listen for language changes
+    const handleLanguageChange = (lng) => {
+      console.log("Language changed to:", lng);
+      // Clear cache for the old locale to ensure fresh data
+      clearCache();
+      fetchArticles(lng);
+    };
+
+    i18n.on("languageChanged", handleLanguageChange);
+
+    // Cleanup listener on unmount
+    return () => {
+      i18n.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
+
+  // Loading component
+  if (isLoading) {
+    return (
+      <main className="bg-white min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="bg-white">
-      <HeroSection />
-      <HighlightsSection />
+      <HeroSection bannerData={bannerData} />
       {/* <LatestIssueButton /> */}
 
       <LocalNewsSection
