@@ -5,6 +5,20 @@ import VideoSection from "../components/VideoSection";
 import LatestIssueButton from "../components/LatestIssueButton";
 import { getHomepage } from "../../core/repo";
 
+// Category mapping for URL-friendly IDs (using English category names)
+const categoryMapping = {
+  mhlyat: "mhlyat",
+  "international-affairs": "international-affairs",
+  opinion: "opinion",
+  "israeli-occupation": "israeli-occupation",
+  "culture-and-media": "culture-media",
+  philosophy: "philosophy",
+  africa: "africa",
+  sports: "sports",
+  economy: "economy",
+  "editorial-article": "editorial",
+};
+
 // Static data for sections (keeping infographics as they don't have API data yet)
 
 const infographicItems = [
@@ -84,10 +98,10 @@ export default async function Home({ params }) {
 
       <LocalNewsSection
         leftTitleKey="sections.locals"
-        leftHref={`/${lang}/mhlyat`}
+        leftHref={`/${lang}/article-category/${categoryMapping["mhlyat"]}`}
         leftPosts={localPostsFromAPI}
         rightTitleKey="sections.international"
-        rightHref={`/${lang}/international-affairs`}
+        rightHref={`/${lang}/article-category/${categoryMapping["international-affairs"]}`}
         rightPosts={internationalPostsFromAPI}
       />
 
@@ -95,10 +109,10 @@ export default async function Home({ params }) {
 
       <LocalNewsSection
         leftTitleKey="sections.opinion"
-        leftHref={`/${lang}/opinion`}
+        leftHref={`/${lang}/article-category/${categoryMapping["opinion"]}`}
         leftPosts={opinionPostsFromAPI}
         rightTitleKey="sections.israelis"
-        rightHref={`/${lang}/israeli-occupation`}
+        rightHref={`/${lang}/article-category/${categoryMapping["israeli-occupation"]}`}
         rightPosts={israelisPostsFromAPI}
       />
 
@@ -106,10 +120,10 @@ export default async function Home({ params }) {
 
       <LocalNewsSection
         leftTitleKey="sections.cultureMedia"
-        leftHref={`/${lang}/culture-and-media`}
+        leftHref={`/${lang}/article-category/${categoryMapping["culture-and-media"]}`}
         leftPosts={culturePostsFromAPI}
         rightTitleKey="sections.philosophy"
-        rightHref={`/${lang}/philosophy`}
+        rightHref={`/${lang}/article-category/${categoryMapping["philosophy"]}`}
         rightPosts={philosophyPostsFromAPI}
       />
 
@@ -117,10 +131,10 @@ export default async function Home({ params }) {
 
       <LocalNewsSection
         leftTitleKey="sections.africa"
-        leftHref={`/${lang}/africa`}
+        leftHref={`/${lang}/article-category/${categoryMapping["africa"]}`}
         leftPosts={africaPostsFromAPI}
         rightTitleKey="sections.sports"
-        rightHref={`/${lang}/sports`}
+        rightHref={`/${lang}/article-category/${categoryMapping["sports"]}`}
         rightPosts={sportsPostsFromAPI}
       />
     </main>
