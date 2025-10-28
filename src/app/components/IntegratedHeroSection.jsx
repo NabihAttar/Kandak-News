@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { getCoverImageUrl } from "../../core/imageUtils";
 
 export default function IntegratedHeroSection({ bannerData }) {
   const { t } = useTranslation("common");
@@ -33,9 +34,7 @@ export default function IntegratedHeroSection({ bannerData }) {
   // Get the selected article from banner data
   const articles = bannerData?.articles || [];
   const featuredArticle = articles[selectedArticleIndex];
-  const backgroundImage = featuredArticle?.cover?.url
-    ? `http://46.62.165.97:1337${featuredArticle.cover.url}`
-    : "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg";
+  const backgroundImage = getCoverImageUrl(featuredArticle?.cover) || "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg";
 
   // Debug logging
   console.log("Banner data:", bannerData);
@@ -105,7 +104,7 @@ export default function IntegratedHeroSection({ bannerData }) {
                 <div
                   className="min-h-[80px] w-24 bg-center bg-cover"
                   style={{
-                    backgroundImage: `url(${article.cover?.url ? `http://46.62.165.97:1337${article.cover.url}` : "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg"})`,
+                    backgroundImage: `url(${getCoverImageUrl(article.cover) || "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg"})`,
                   }}
                 ></div>
                 <p className="text-black text-sm text-right">{article.title}</p>

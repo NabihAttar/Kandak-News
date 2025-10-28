@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { getCoverImageUrl } from "../../core/imageUtils";
 
 export default function HighlightsSection({
   bannerData,
@@ -45,7 +46,7 @@ export default function HighlightsSection({
             <div
               className="min-h-[80px] w-24 bg-center bg-cover"
               style={{
-                backgroundImage: `url(${article.cover?.url ? `http://46.62.165.97:1337${article.cover.url}` : article.cover?.url || "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg"})`,
+                backgroundImage: `url(${getCoverImageUrl(article.cover) || "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg"})`,
               }}
             ></div>
             <p className="text-black text-sm text-right">{article.title}</p>

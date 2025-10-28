@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { getCoverImageUrl } from "../../core/imageUtils";
 
 export default function HeroSection({ bannerData }) {
   const { t } = useTranslation("common");
@@ -31,9 +32,7 @@ export default function HeroSection({ bannerData }) {
 
   // Get the first article from banner data if available
   const featuredArticle = bannerData?.articles?.[0];
-  const backgroundImage = featuredArticle?.cover?.url
-    ? `http://46.62.165.97:1337${featuredArticle.cover.url}`
-    : "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg";
+  const backgroundImage = getCoverImageUrl(featuredArticle?.cover) || "https://al-khandak.com/storage/posts/March2025/Oi8mhhMp1FSWiw5Gp1AR.jpg";
 
   return (
     <div className="carousel-item">

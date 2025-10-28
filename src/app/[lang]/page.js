@@ -1,9 +1,33 @@
+import dynamic from "next/dynamic";
 import IntegratedHeroSection from "../components/IntegratedHeroSection";
-import LocalNewsSection from "../components/LocalNewsSection";
-import InfographicsSection from "../components/InfographicsSection";
-import VideoSection from "../components/VideoSection";
-import LatestIssueButton from "../components/LatestIssueButton";
 import { getHomepage } from "../../core/repo";
+import { getCoverImageUrl } from "../../core/imageUtils";
+
+// Dynamic imports for better performance - these components are not immediately visible
+const LocalNewsSection = dynamic(
+  () => import("../components/LocalNewsSection"),
+  {
+    loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded" />,
+  }
+);
+
+const InfographicsSection = dynamic(
+  () => import("../components/InfographicsSection"),
+  {
+    loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded" />,
+  }
+);
+
+const VideoSection = dynamic(() => import("../components/VideoSection"), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded" />,
+});
+
+const LatestIssueButton = dynamic(
+  () => import("../components/LatestIssueButton"),
+  {
+    loading: () => null, // Don't show loading for this small component
+  }
+);
 
 // Category mapping for URL-friendly IDs (using English category names)
 const categoryMapping = {
@@ -57,7 +81,7 @@ export default async function Home({ params }) {
           post.datePublished ||
           new Date(post.publishedAt).toLocaleDateString("en-GB"),
         views: "0", // API doesn't provide view count
-        image: `http://46.62.165.97:1337${post.cover?.url}` || "",
+        image: getCoverImageUrl(post.cover) || "",
         url: `/${lang}/article/${post.documentId}`,
       })) || []
     );

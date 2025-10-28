@@ -1,5 +1,6 @@
 import React from "react";
 import { getArticle } from "@/core/repo";
+import { getCoverImageUrl, getAvatarImageUrl } from "@/core/imageUtils";
 import ArticleHeader from "../ArticleHeader";
 import ArticleLayout from "../ArticleLayout";
 
@@ -28,10 +29,10 @@ const ArticlePage = async ({ params }) => {
   return (
     <div className="col-12 post-content pb-5 bg-white border-l-0 lg:border-l-2 lg:border-gray-300">
       <ArticleHeader
-        coverImage={`http://46.62.165.97:1337${articleData.data.cover?.url}`}
+        coverImage={getCoverImageUrl(articleData.data.cover)}
         description={articleData.data.description}
         authorName={articleData.data.author?.name}
-        authorImage={`http://46.62.165.97:1337${articleData.data.author?.avatar?.url}`}
+        authorImage={getAvatarImageUrl(articleData.data.author?.avatar)}
         authorLink={articleData.data.author?.link}
         dir="rtl"
       />

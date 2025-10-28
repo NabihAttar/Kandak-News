@@ -1,9 +1,8 @@
 import Link from "next/link";
+import { getCoverImageUrl, getFallbackImageUrl } from "../../../../core/imageUtils";
 
 const ArticleCard = ({ article, index, lang = "ar" }) => {
-  const coverImage = article.cover?.url
-    ? `http://46.62.165.97:1337${article.cover.url}`
-    : "https://via.placeholder.com/400x300?text=No+Image";
+  const coverImage = getCoverImageUrl(article.cover) || getFallbackImageUrl();
 
   const articleLink = `/${lang}/article/${article.documentId}`;
   return (
