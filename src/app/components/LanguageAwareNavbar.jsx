@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import { useRouter, usePathname } from "next/navigation";
 import { FaBars, FaSearch, FaFilePdf } from "react-icons/fa";
+import Link from "next/link";
+import { getEditions } from "../../core/repo.js";
 
 // Load Sidebar on the client only to avoid SSR hydration mismatches
 const Sidebar = dynamic(() => import("./Sidebar"), { ssr: false });
@@ -22,6 +24,7 @@ export default function LanguageAwareNavbar({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [lng, setLng] = useState("ar");
+  const [editions, setEditions] = useState([]);
 
   // Extract current language from pathname
   const currentLang = pathname.split("/")[1] || "ar";
@@ -40,6 +43,32 @@ export default function LanguageAwareNavbar({
     applyLang(currentLang);
   }, [currentLang, applyLang]);
 
+  // Fetch editions on component mount
+  useEffect(() => {
+    const fetchEditions = async () => {
+      try {
+        const response = await getEditions();
+        if (response?.data) {
+          // Sort editions by number in descending order (newest first)
+          const sortedEditions = [...response.data].sort(
+            (a, b) => b.number - a.number
+          );
+          setEditions(sortedEditions);
+        }
+      } catch (error) {
+        console.error("Error fetching editions:", error);
+      }
+    };
+    fetchEditions();
+  }, []);
+
+  // Format date from YYYY-MM-DD to DD/MM/YYYY
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
   const switchLanguage = useCallback(() => {
     const nextLang = currentLang === "ar" ? "en" : "ar";
 
@@ -55,6 +84,16 @@ export default function LanguageAwareNavbar({
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     onSearch(query);
+  };
+
+  const handleEditionChange = (e) => {
+    const editionNumber = e.target.value;
+    if (editionNumber) {
+      // Navigate to edition page with the edition number
+      router.push(`/${currentLang}/edition/${editionNumber}`);
+    }
+    // Call the callback if provided (for backward compatibility)
+    onEditionChange(editionNumber);
   };
 
   return (
@@ -110,11 +149,13 @@ export default function LanguageAwareNavbar({
             </div>
 
             <div className="flex justify-center flex-1">
-              <img
-                src="/images/logo.svg"
-                alt={t("brandAlt")}
-                className="h-16 object-contain"
-              />
+              <Link href="/">
+                <img
+                  src="/images/logo.svg"
+                  alt={t("brandAlt")}
+                  className="h-16 object-contain"
+                />
+              </Link>
             </div>
 
             <div className="flex items-center gap-3 flex-1 justify-end">
@@ -127,7 +168,7 @@ export default function LanguageAwareNavbar({
               </button>
 
               <select
-                onChange={(e) => onEditionChange(e.target.value)}
+                onChange={handleEditionChange}
                 className="px-3 py-2 rounded border border-black bg-white text-sm text-black"
                 aria-label={t("issueDate")}
                 defaultValue=""
@@ -135,8 +176,11 @@ export default function LanguageAwareNavbar({
                 <option disabled value="">
                   {t("issueDate")}
                 </option>
-                <option value="13">{t("issue")} 13 - 10/09/2023</option>
-                <option value="12">{t("issue")} 12 - 30/09/2021</option>
+                {editions.map((edition) => (
+                  <option key={edition.id} value={edition.number}>
+                    {t("issue")} {edition.number} - {formatDate(edition.date)}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -210,7 +254,7 @@ export default function LanguageAwareNavbar({
 
             <div className="mt-3 px-1">
               <select
-                onChange={(e) => onEditionChange(e.target.value)}
+                onChange={handleEditionChange}
                 className="w-full px-3 py-2 rounded border border-black bg-white text-sm text-black"
                 aria-label={t("issueDate")}
                 defaultValue=""
@@ -218,15 +262,22 @@ export default function LanguageAwareNavbar({
                 <option disabled value="">
                   {t("issueDate")}
                 </option>
-                <option value="13">{t("issue")} 13 - 10/09/2023</option>
-                <option value="12">{t("issue")} 12 - 30/09/2021</option>
+                {editions.map((edition) => (
+                  <option key={edition.id} value={edition.number}>
+                    {t("issue")} {edition.number} - {formatDate(edition.date)}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
         </div>
       </header>
 
-      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+        lang={currentLang}
+      />
     </>
   );
 }

@@ -16,25 +16,38 @@ import {
   FaBasketballBall,
 } from "react-icons/fa";
 
-export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }) {
+export default function Sidebar({
+  isOpen,
+  setIsOpen,
+  side,
+  widthClass = "w-64",
+  lang = "ar",
+}) {
   const { t } = useTranslation("common");
 
   // Track <html dir> and map to side when no explicit prop is given
   const [autoSide, setAutoSide] = useState("right");
   useEffect(() => {
     const compute = () =>
-      (document?.documentElement?.getAttribute("dir") || "rtl") === "rtl" ? "right" : "left";
+      (document?.documentElement?.getAttribute("dir") || "rtl") === "rtl"
+        ? "right"
+        : "left";
     setAutoSide(compute());
     const mo = new MutationObserver(() => setAutoSide(compute()));
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["dir"] });
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
     return () => mo.disconnect();
   }, []);
 
-  const effectiveSide = side || autoSide;           // "right" for RTL, "left" for LTR
+  const effectiveSide = side || autoSide; // "right" for RTL, "left" for LTR
   const isLeft = effectiveSide === "left";
 
   // When CLOSED, don't animate transform (prevents the cross-screen slide on lang toggle)
-  const transitionClass = isOpen ? "transition-transform duration-300" : "transition-none";
+  const transitionClass = isOpen
+    ? "transition-transform duration-300"
+    : "transition-none";
 
   // Position & transform
   const sideClass = isLeft ? "left-0" : "right-0";
@@ -44,26 +57,71 @@ export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }
   const closeBtnSide = isLeft ? "right-2" : "left-2";
   const Chevron = isLeft ? FaChevronLeft : FaChevronRight;
 
-  const menuItems = useMemo(
-    () => [
-      { label: t("home"),              icon: <Chevron />,         path: "/" },
-      { label: t("cat.editorial"),     icon: <FaBullhorn />,      path: "/editorial-article" },
-      { label: t("cat.israelis"),      icon: <FaStarOfDavid />,   path: "/israeli-occupation" },
-      { label: t("cat.international"), icon: <FaGlobe />,         path: "/international-affairs" },
-      { label: t("cat.africa"),        icon: <FaFlag />,          path: "/africa" },
-      { label: t("cat.locals"),        icon: <FaMapMarkerAlt />,  path: "/mhlyat" },
-      { label: t("cat.opinion"),       icon: <FaComments />,      path: "/opinion" },
-      { label: t("cat.economy"),       icon: <FaFlag />,          path: "/economy" },
-      { label: t("cat.philosophy"),    icon: <FaBook />,          path: "/philosophy" },
-      { label: t("cat.cultureMedia"),  icon: <FaTheaterMasks />,  path: "/culture-and-media" },
-      { label: t("cat.sports"),        icon: <FaBasketballBall />,path: "/sports" },
-      { label: t("cat.folders"),       icon: null,                path: "/folders" },
-      { label: t("cat.videos"),        icon: null,                path: "/videos" },
-      { label: t("cat.infographics"),  icon: null,                path: "/infographics" },
-      { label: t("cat.contact"),       icon: null,                path: "/contact-us" },
-    ],
-    [t, isLeft]
-  );
+  const menuItems = useMemo(() => {
+    const basePaths = [
+      { label: t("home"), icon: <Chevron />, path: "/" },
+      {
+        label: t("cat.editorial"),
+        icon: <FaBullhorn />,
+        path: "/article-category/editorial",
+      },
+      {
+        label: t("cat.israelis"),
+        icon: <FaStarOfDavid />,
+        path: "/article-category/israeli-occupation",
+      },
+      {
+        label: t("cat.international"),
+        icon: <FaGlobe />,
+        path: "/article-category/international-affairs",
+      },
+      {
+        label: t("cat.africa"),
+        icon: <FaFlag />,
+        path: "/article-category/africa",
+      },
+      {
+        label: t("cat.locals"),
+        icon: <FaMapMarkerAlt />,
+        path: "/article-category/mhlyat",
+      },
+      {
+        label: t("cat.opinion"),
+        icon: <FaComments />,
+        path: "/article-category/opinion",
+      },
+      {
+        label: t("cat.economy"),
+        icon: <FaFlag />,
+        path: "/article-category/economy",
+      },
+      {
+        label: t("cat.philosophy"),
+        icon: <FaBook />,
+        path: "/article-category/philosophy",
+      },
+      {
+        label: t("cat.cultureMedia"),
+        icon: <FaTheaterMasks />,
+        path: "/article-category/culture-media",
+      },
+      {
+        label: t("cat.sports"),
+        icon: <FaBasketballBall />,
+        path: "/article-category/sports",
+      },
+      { label: t("cat.folders"), icon: null, path: "/folders" },
+      { label: t("cat.videos"), icon: null, path: "/videos" },
+      { label: t("cat.infographics"), icon: null, path: "/infographics" },
+      { label: t("cat.contact"), icon: null, path: "/contact-us" },
+    ];
+
+    // Prepend language prefix to all paths except home
+    return basePaths.map((item) => ({
+      ...item,
+      path: item.path === "/" ? `/${lang}` : `/${lang}${item.path}`,
+    }));
+  }, [t, isLeft, lang]);
 
   // Esc to close + lock scroll
   useEffect(() => {
@@ -77,7 +135,10 @@ export default function Sidebar({ isOpen, setIsOpen, side, widthClass = "w-64" }
   }, [isOpen, setIsOpen]);
 
   return (
-    <div className={`fixed inset-0 z-50 ${isOpen ? "" : "pointer-events-none"}`} dir="auto">
+    <div
+      className={`fixed inset-0 z-50 ${isOpen ? "" : "pointer-events-none"}`}
+      dir="auto"
+    >
       {/* Overlay */}
       <div
         className={`absolute inset-0 bg-black/40 transition-opacity duration-300
