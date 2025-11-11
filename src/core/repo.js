@@ -137,11 +137,17 @@ const getByCategory = async (
   const populateParams = "?populate%5B0%5D=cover&populate%5B1%5D=author";
   const url = `${ARTICLES_URL}${populateParams}`;
 
-  console.log("getByCategory URL:", url);
-  console.log("getByCategory params:", params);
+  // Try in-memory cache first (reduces repeated calls on fast navigation)
+  const cacheKey = getCacheKey(url, params);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
 
   const response = await apiService.get(url, params);
-  return response.data;
+  const data = response.data;
+  setCache(cacheKey, data);
+  return data;
 };
 
 const getByAuthor = async (author, limit = null) => {
@@ -163,14 +169,26 @@ const getArticle = async (documentId) => {
   return response.data;
 };
 
-const getEditions = async (page = 1, pageSize = 25) => {
+const getEditions = async (page = 1, pageSize = 100) => {
+  // Fetch only the fields we need and let API sort newest first
   const params = {
     "pagination[page]": page,
     "pagination[pageSize]": pageSize,
+    "fields[0]": "number",
+    "fields[1]": "date",
+    "sort[0]": "number:desc",
   };
 
+  const cacheKey = getCacheKey(EDITIONS_URL, params);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const response = await apiService.get(EDITIONS_URL, params);
-  return response.data;
+  const data = response.data;
+  setCache(cacheKey, data);
+  return data;
 };
 
 const getEditionByNumber = async (number) => {
@@ -183,8 +201,16 @@ const getEditionByNumber = async (number) => {
     "?populate%5B0%5D=articles&populate%5B1%5D=articles.cover";
   const url = `${EDITIONS_URL}${populateParams}`;
 
+  const cacheKey = getCacheKey(url, params);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const response = await apiService.get(url, params);
-  return response.data;
+  const data = response.data;
+  setCache(cacheKey, data);
+  return data;
 };
 
 const getHomepage = async (currentLocale = null) => {

@@ -1,10 +1,18 @@
 import Link from "next/link";
 
-const Pagination = ({ currentPage, totalPages, categoryId, lang }) => {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const Pagination = ({ currentPage, totalPages, lang }) => {
+  const buildWindow = () => {
+    const windowSize = 2;
+    const pages = new Set([1, totalPages]);
+    for (let p = currentPage - windowSize; p <= currentPage + windowSize; p++) {
+      if (p >= 1 && p <= totalPages) pages.add(p);
+    }
+    return Array.from(pages).sort((a, b) => a - b);
+  };
+  const pages = buildWindow();
 
   const getPageUrl = (page) => {
-    return `/${lang}/article-category/${categoryId}?page=${page}`;
+    return `/${lang}/edition?page=${page}`;
   };
 
   return (
@@ -53,21 +61,29 @@ const Pagination = ({ currentPage, totalPages, categoryId, lang }) => {
           )}
         </li>
 
-        {/* Page Numbers */}
-        {pages.map((page) => (
-          <li key={page}>
-            <Link
-              href={getPageUrl(page)}
-              className={`inline-flex items-center justify-center w-10 h-10 rounded-md leading-none ${
-                page === currentPage
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-800 text-white hover:bg-red-600"
-              }`}
-            >
-              {page}
-            </Link>
-          </li>
-        ))}
+        {/* Page Numbers with Ellipsis */}
+        {pages.map((page, idx) => {
+          const prev = pages[idx - 1];
+          const showEllipsis = prev && page - prev > 1;
+          return (
+            <li key={page}>
+              {showEllipsis && <span className="px-2">…</span>}
+              {page === currentPage ? (
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-red-500 text-white">
+                  {page}
+                </span>
+              ) : (
+                <Link
+                  href={getPageUrl(page)}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-gray-800 text-white hover:bg-red-600"
+                  aria-label={`Page ${page}`}
+                >
+                  {page}
+                </Link>
+              )}
+            </li>
+          );
+        })}
 
         {/* Next Button */}
         <li>
